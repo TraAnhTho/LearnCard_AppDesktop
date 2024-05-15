@@ -1,8 +1,12 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class Card {
 	private String Definition;
 	private String Name_Card;
+//	private ArrayList<FlashCard> CardList;
+
 	
 	public Card(String definition, String name_Card) {
 		super();
@@ -25,6 +29,7 @@ public class Card {
 	public void setName_Card(String name_Card) {
 		Name_Card = name_Card;
 	}
+	
 	
 	
 }
