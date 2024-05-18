@@ -1,10 +1,12 @@
 package View;
 import Model.Card;
 
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Label;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -28,15 +30,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.EventObject;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+import View.Login;
 public class Home_Login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private Login login;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JLabel lbl_Edit;
@@ -53,6 +57,9 @@ public class Home_Login extends JFrame {
 	protected JComponent panel_Edit_Card;
 	protected JComponent panel_Edit;
 	protected JComponent panel_Delete;
+	private JComponent panel_Create_List;
+	private Label lbl_create;
+	private Button btn_Next;
 
 	/**
 	 * Launch the application.
@@ -74,7 +81,7 @@ public class Home_Login extends JFrame {
 	 * Create the frame.
 	 * @throws Exception 
 	 */
-	public Home_Login() throws Exception {
+	public Home_Login() throws Exception  {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1020, 510);
@@ -291,12 +298,13 @@ public class Home_Login extends JFrame {
 		textField_des.setBounds(376, 152, 587, 97);
 		panel_Create.add(textField_des);
 		
-		JButton btnNewButton = new JButton("NEXT");
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		btnNewButton.setBackground(new Color(66, 85, 255));
-		btnNewButton.setBounds(809, 271, 153, 45);
-		panel_Create.add(btnNewButton);
+		JButton btn_Next = new JButton("NEXT");
+		
+		btn_Next.setForeground(new Color(255, 255, 255));
+		btn_Next.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		btn_Next.setBackground(new Color(66, 85, 255));
+		btn_Next.setBounds(809, 271, 153, 45);
+		panel_Create.add(btn_Next);
 		
 		JButton btnSave = new JButton("SAVE");
 		btnSave.setForeground(Color.WHITE);
@@ -465,7 +473,6 @@ public class Home_Login extends JFrame {
 //		Background_Main.setBounds(0, 0, 1006, 473);
 //		Interface.add(Background_Main);
 		
-		
 		// chuột
 		Home.addMouseListener(new MouseAdapter() {
 			@Override
@@ -481,6 +488,8 @@ public class Home_Login extends JFrame {
 		lbl_create.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+
+
 				panel_tools.setVisible(false);
 				panel_Edit_List.setVisible(false);
 				panel_Edit_Card.setVisible(false);
@@ -488,6 +497,14 @@ public class Home_Login extends JFrame {
 				panel_Create.setVisible(false);
 				panel_Delete.setVisible(false);
 				panel_Create_List.setVisible(true);
+				
+//				try {
+//				switchForm(e);
+//				System.out.println("ok");
+//			} catch (Exception e1) {
+//				System.err.println("An error occurred: " + e1.getMessage());
+//	            					e1.printStackTrace();
+//			}
 			}
 		});
 
@@ -547,8 +564,9 @@ public class Home_Login extends JFrame {
 		});
 		btn_create_list.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panel_tools.setVisible(false);
 				panel_Create.setVisible(true);
+				panel_tools.setVisible(false);
+				panel_Create_List.setVisible(false);
 				panel_Edit_List.setVisible(false);
 				panel_Edit_Card.setVisible(false);
 				panel_Edit.setVisible(false);
@@ -563,32 +581,128 @@ public class Home_Login extends JFrame {
 					Statement st = c.createStatement();
 					
 					// Bước 3: Thực thi một câu lệnh SQL
-					String sql = "INSERT INTO flash_card.`list_card` (STT,`List_Name`,`cardcol`)"
+					String sql = "INSERT INTO flash_card.`list_card` (STT,`List_Name`,`cardcol`,`usercol`)"
 							+ "VALUES ("+null
 							+", '"+ textField_List_Card.getText()
 							+"', '"+ textField_List_Card.getText()
-							+"') ON DUPLICATE KEY UPDATE `List_Card` = VALUES(`List_Card`), `cardcol` = VALUES(`cardcol`);";
+							
+							//can sua 
+							// them thread vào để dispose cua so van chạy
+							+"', '"+ "admin"
+//							+"', '"+ login.getTextField_user().getText()
+							+"') ON DUPLICATE KEY UPDATE `List_Name` = VALUES(`List_Name`), `cardcol` = VALUES(`cardcol`);";
 					int check = st.executeUpdate(sql);
 			
 					c.close();
 //					Clear();				
 //					dispose();
-//					JOptionPane.showMessageDialog(new QuanLi(), "Đã Lưu");
-					
-					
+//					JOptionPane.showMessageDialog((), "Đã Lưu");
+				
+				//can sua						
 				} catch (Exception e2) {
 					dispose();
+					System.err.println("An error occurred: " + e2.getMessage());
+		            e2.printStackTrace();
+//					try {
+//						JOptionPane.showMessageDialog( panel_Create_List, "Lỗi!");
+//					} catch (Exception e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
+			}
+			}
+		});
+		btn_Next.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+//				switchForm(e);
+				panel_tools.setVisible(false);
+				panel_Create_List.setVisible(false);
+				panel_Edit_List.setVisible(false);
+				panel_Edit_Card.setVisible(false);
+				panel_Edit.setVisible(false);
+				panel_Delete.setVisible(false);
+				panel_Create.setVisible(true);
+				try {
+					// Bước 1: Tạo kết nối
+					Connection c = JDBC_KetNoi.getConnection();
+					
+					// Bước 2: Tạo ra đối tượng statement
+					Statement st = c.createStatement();
+					
+					// Bước 3: Thực thi một câu lệnh SQL
+					String sql = "INSERT INTO flash_card.`card` (STT,`cardcol`,`Name`,`Dinh_Nghia`)"
+							+ "VALUES ("+null
+							+", '"+ textField_List_Card.getText()
+							+"', '"+ textField_card.getText()
+							+"', '"+ textField_des.getText()
+							+"');";
+					int check = st.executeUpdate(sql);
+					c.close();
+//					dispose();
+//					String temp =textField_List_Card.getText();
+//					new Home_Login();
+//					panel_Create_List.setVisible(true);
+//					textField_List_Card.setText(temp);
+//					panel_Create.setVisible(true);
+//					panel_tools.setVisible(false);
+//					panel_Create_List.setVisible(false);
+//					panel_Edit_List.setVisible(false);
+//					panel_Edit_Card.setVisible(false);
+//					panel_Edit.setVisible(false);
+//					panel_Delete.setVisible(false);
+					
+					
+					
+					
+					//can sua					
+					
+				} catch (Exception e2) {
 					try {
-						JOptionPane.showMessageDialog( btn_create_list.createActionListener(), "Lỗi!");
+						JOptionPane.showMessageDialog( panel_Create_List, "Lỗi!");
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 			}
+//				panel_Create.setVisible(flase);
+
 			}
 		});
 		
+		
+		
+		
+		
+		
+
 	}
+	
+	
+//	public void switchForm(EventObject event) {
+//        Object source = event.getSource();
+//		if(source==lbl_create) {
+//			panel_Create.setVisible(false);
+//			panel_tools.setVisible(false);
+//			panel_Create_List.setVisible(true);
+//			panel_Edit_List.setVisible(false);
+//			panel_Edit_Card.setVisible(false);
+//			panel_Edit.setVisible(false);
+//			panel_Delete.setVisible(false);
+//		}
+//		else if(source==btn_Next) {
+//			panel_Create_List.setVisible(true);
+//			panel_tools.setVisible(false);
+//			panel_Create.setVisible(false);
+//			panel_Edit_List.setVisible(false);
+//			panel_Edit_Card.setVisible(false);
+//			panel_Edit.setVisible(false);
+//			panel_Delete.setVisible(false);
+//		}
+//	}
+	
+	
+	
 	public void LoadDBData2JTable() throws Exception{
         Connection conn=getConnection();
         String sql="select *from list_card";

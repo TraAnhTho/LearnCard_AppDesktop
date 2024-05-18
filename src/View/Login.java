@@ -33,6 +33,24 @@ public class Login extends JFrame {
 	private JTextField textField;
 	private JTextField textField_user;
 	private JTextField textField_pass;
+	
+	
+
+	public JTextField getTextField_user() {
+		return textField_user;
+	}
+
+	public void setTextField_user(JTextField textField_user) {
+		this.textField_user = textField_user;
+	}
+
+	public JTextField getTextField_pass() {
+		return textField_pass;
+	}
+
+	public void setTextField_pass(JTextField textField_pass) {
+		this.textField_pass = textField_pass;
+	}
 
 	/**
 	 * Launch the application.
@@ -141,7 +159,7 @@ public class Login extends JFrame {
 					System.out.println("check: "+check);
 			
 					c.close();
-					dispose();
+//					dispose();
 					//can sua
 					JOptionPane.showMessageDialog(new Home_Login(), "Đã Lưu");
 					
@@ -196,7 +214,7 @@ public class Login extends JFrame {
 				
 						c.close();
 //						Clear();				
-						dispose();
+//						dispose();
 						JOptionPane.showMessageDialog(new Home_Login(), "Đã Lưu");	
 					}	
 					} catch (Exception e2) {
