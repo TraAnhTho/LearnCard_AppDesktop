@@ -1,4 +1,6 @@
 package View;
+import Model.Card;
+import Model.List_Card;
 import Model.User;
 import JDBC_KetNoi.JDBC_KetNoi;
 
@@ -7,6 +9,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -21,39 +24,37 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import Controller.User_Listener;
+import DAO.Card_DAO;
+import DAO.List_DAO;
+import DAO.User_DAO;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Login extends JFrame {
-
+	private Card card;
+	private List_Card listcard;
+	private User user;
+	private Card_DAO cardDAO;
+	private List_DAO listDAO;
+	private User_DAO userDAO;
+	
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_user;
 	private JTextField textField_pass;
 	
-	
 
-	public JTextField getTextField_user() {
-		return textField_user;
-	}
-
-	public void setTextField_user(JTextField textField_user) {
-		this.textField_user = textField_user;
-	}
-
-	public JTextField getTextField_pass() {
-		return textField_pass;
-	}
-
-	public void setTextField_pass(JTextField textField_pass) {
-		this.textField_pass = textField_pass;
-	}
 
 	/**
 	 * Launch the application.
+	 * @author TraAnhTho
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -75,6 +76,12 @@ public class Login extends JFrame {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1020, 510);
+		
+		//gọi
+		//thís là cái view mình đang làm việc
+		ActionListener ac =new User_Listener(this);
+		
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -131,120 +138,53 @@ public class Login extends JFrame {
 		textField_user.setBounds(393, 167, 294, 52);
 		Interface.add(textField_user);
 		textField_user.setColumns(10);
+//		textField_user =new JTextField(this.user.getIdUser()+"");
+//		this.user.setIdUser(textField_user.getText());
+//		this.user.setUsercol(textField_user.getText());
+
+
+		
 		
 		textField_pass = new JTextField();
 		textField_pass.setBounds(393, 258, 294, 52);
 		Interface.add(textField_pass);
 		textField_pass.setColumns(10);
+//		textField_pass =new JTextField(this.user.getPassWord()+"");
+//		this.user.setPassWord(textField_pass.getText());
+
 		
 		JButton btn_dangki = new JButton("Đăng nhập");
-		btn_dangki.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {		
-				try {
-					String url = "jdbc:mySQL://localhost:3306/flash_card";
-					String username = "root";
-					String password = "081105";
-					// Bước 1: Tạo kết nối
-					Connection c = JDBC_KetNoi.getConnection();
-					
-					// Bước 2: Tạo ra đối tượng statement
-					Statement st = c.createStatement();
-					
-					// Bước 3: Thực thi một câu lệnh SQL
-					String sql = "SELECT * FROM flash_card.`user` WHERE `idUser` = '"+ textField_user.getText()
-					+"' AND `pass` = '"
-							+ textField_pass.getText()+"';";
-					System.out.println("sql: "+sql);
-					ResultSet check = st.executeQuery(sql);
-					System.out.println("check: "+check);
-			
-					c.close();
-//					dispose();
-					//can sua
-					JOptionPane.showMessageDialog(new Home_Login(), "Đã Lưu");
-					
-					
-				} catch (Exception e2) {
-					System.err.println("An error occurred: " + e2.getMessage());
-		            e2.printStackTrace();
-		            //					dispose();
-				}
-			}
-		});
+		btn_dangki.addActionListener(ac);
 		btn_dangki.setBounds(393, 345, 129, 41);
 		Interface.add(btn_dangki);
-		
 		JButton btn_dangnhap = new JButton("Đăng kí");
-		btn_dangnhap.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					String url = "jdbc:mySQL://localhost:3306/hethongminimart";
-					String username = "root";
-					String password = "081105";
-					// Tạo kết nối
-					Connection con = DriverManager.getConnection(url, username, password);
-					PreparedStatement ps = con.prepareStatement("SELECT * FROM flash_card.`user` WHERE `idUser` = '" +textField_user.getText()+"';");
-					System.out.println(ps);
-					ResultSet Rs = ps.executeQuery();
-					System.out.println(Rs);
-					System.out.println(Rs.next());
-		
-					if(Rs.next()==true) {
-						JOptionPane.showMessageDialog(new Login(), "Tài khoản đã tồn tại!!!");
-						System.out.println("success");
-
-					}else if(Rs.next()==false) {
-						System.out.println("fail");
-
-						JOptionPane.showMessageDialog(new Login(), "Tài khoản chưa tồn tại!!!");
-						// Bước 1: Tạo kết nối
-						Connection c = JDBC_KetNoi.getConnection();
-						
-						// Bước 2: Tạo ra đối tượng statement
-						Statement st = c.createStatement();
-						
-						// Bước 3: Thực thi một câu lệnh SQL
-						String sql = "INSERT INTO flash_card.`user` (`STT`,`usercol`, `idUser`,`pass`)"
-								+ "VALUES ("+null
-								+", '"+ textField_user.getText()
-								+"', '"+ textField_user.getText()
-								+"', '"+ textField_pass.getText()
-								+"') ON DUPLICATE KEY UPDATE `pass` = VALUES(`pass`), `usercol` = VALUES(`usercol`);";
-						int check = st.executeUpdate(sql);
-				
-						c.close();
-//						Clear();				
-//						dispose();
-						JOptionPane.showMessageDialog(new Home_Login(), "Đã Lưu");	
-					}	
-					} catch (Exception e2) {
-						dispose();
-						System.err.println("An error occurred: " + e2.getMessage());
-			            e2.printStackTrace();
-				}
-			}
-		});
+		btn_dangnhap.addActionListener(ac);
 		btn_dangnhap.setBounds(558, 345, 129, 41);
 		Interface.add(btn_dangnhap);
 		
 	}
-public void LoadDBDataJTable() throws Exception{
-	    
-	    Connection conn=getConnection();
-	    String sql="select *from user";
-	    ResultSet rs=conn.createStatement().executeQuery(sql);
-	    conn.close();
-	}
-	 private Connection getConnection()throws Exception{
-	    	String url = "jdbc:mySQL://localhost:3306/flash_card";
-			String username = "root";
-			String password = "081105";
-			// Tạo kết nối
-			Connection con = DriverManager.getConnection(url, username, password);
-	       return con;
-	 }
-	 
 	 
 
+	 
+	 public void SelectById() {
+		 System.out.println("Đăng Nhập click");
+		 if(textField_user.getText().trim().isEmpty()||textField_pass.getText().trim().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!!");
+		 }else {
+			 this.userDAO.getInstance().DangNhap(textField_user.getText(),textField_pass.getText());
+			 dispose();
+		 }
+	 }
+	 
+	 public void InsertsUser() {
+		 if(textField_user.getText().trim().isEmpty()||textField_pass.getText().trim().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!!");
+		 }else {
+			User usernote = new User(textField_user.getText(),textField_user.getText(),textField_pass.getText());
+			 this.userDAO.getInstance().Dang_Ki(usernote);
+			 dispose();
+		 }
+	}
+	 
 
 }

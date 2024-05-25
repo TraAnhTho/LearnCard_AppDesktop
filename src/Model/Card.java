@@ -2,9 +2,19 @@ package Model;
 
 import java.util.ArrayList;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "card")
 public class Card {
+    @Column(name = "cardcol")
 	private String cardcol;
+    @Column(name = "Dinh_Nghia")
 	private String Definition;
+	@Id
 	private String Name_Card;
 //	private ArrayList<FlashCard> CardList;
 
@@ -43,6 +53,10 @@ public class Card {
 	}
 	public void setCardcol(String cardcol) {
 		this.cardcol = cardcol;
+	}
+	@Override
+	public String toString() {
+		return "Card [cardcol=" + cardcol + ", Definition=" + Definition + ", Name_Card=" + Name_Card + "]";
 	}
 	
 	

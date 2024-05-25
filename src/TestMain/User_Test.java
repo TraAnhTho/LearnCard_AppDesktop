@@ -1,5 +1,7 @@
 package TestMain;
 
+import java.util.ArrayList;
+
 import DAO.User_DAO;
 import Model.User;
 
@@ -31,6 +33,14 @@ public class User_Test {
 //			User_DAO.getInstance().Delete(user);
 //		}
 
+		ArrayList<User> listuser = User_DAO.getInstance().selectAll();
+		for (User user : listuser) {
+			System.out.println(user.toString());
+		}
 		
+		User find = new User();
+		find.setUsercol("user");
+		User us = User_DAO.getInstance().selectById(find);
+		System.out.println(us);
 	}
 }

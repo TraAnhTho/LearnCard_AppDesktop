@@ -1,8 +1,18 @@
 package Model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "user")
 public class User {
+	@Id //khóa chính
 	private String usercol;
+    @Column(name = "idUser")
 	private String idUser;
+    @Column(name = "pass")
 	private String passWord;
 	public User(String usercol, String idUser, String passWord) {
 		super();
@@ -19,6 +29,7 @@ public class User {
 	public void setUsercol(String usercol) {
 		this.usercol = usercol;
 	}
+	
 	public String getIdUser() {
 		return idUser;
 	}
@@ -30,6 +41,10 @@ public class User {
 	}
 	public void setPassWord(String passWord) {
 		this.passWord = passWord;
+	}
+	@Override
+	public String toString() {
+		return "User [usercol=" + usercol + ", idUser=" + idUser + ", passWord=" + passWord + "]";
 	}
 	
 	

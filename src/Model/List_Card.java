@@ -1,8 +1,18 @@
 package Model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "list_card")
 public class List_Card {
+	@Id
 	private String cardcol;
+    @Column(name = "usercol")
 	private String usercol;
+    @Column(name = "List_Name")
 	private String Name_List;
 	public List_Card(String cardcol, String usercol, String name_List) {
 		super();
@@ -30,6 +40,10 @@ public class List_Card {
 	}
 	public void setName_List(String name_List) {
 		Name_List = name_List;
+	}
+	@Override
+	public String toString() {
+		return "List_Card [cardcol=" + cardcol + ", usercol=" + usercol + ", Name_List=" + Name_List + "]";
 	}
 	
 	

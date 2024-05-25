@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class Home extends JFrame {
 
@@ -245,6 +246,7 @@ public class Home extends JFrame {
 		Login.add(button_login);
 		
 		JButton button_register = new JButton("Register");
+		button_register.setBackground(new Color(255, 182, 115));
 		button_register.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 17));
 		button_register.setBounds(165, 11, 144, 38);
 		button_register.addActionListener(new ActionListener() {
@@ -255,8 +257,18 @@ public class Home extends JFrame {
 		});
 		Login.add(button_register);
 		
+		
+		JLabel Background_Main = new JLabel("");
+		Background_Main.setVerticalAlignment(SwingConstants.BOTTOM);
+		Background_Main.setIcon(new ImageIcon(Home.class.getResource("/IMG/girlbook.png")));
+		Background_Main.setBackground(new Color(255, 182, 115));
+		Background_Main.setBounds(0, 0, 1006, 473);
+		Interface.add(Background_Main);
+		
+		
+		
 		JButton Start = new JButton("Start");
-		Start.setBackground(new Color(66, 85, 255));
+		Start.setBackground(new Color(255, 182, 115));
 		Start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -268,6 +280,6 @@ public class Home extends JFrame {
 		Interface.add(Start);
 		
 
-		
+
 	}
 }
