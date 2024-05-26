@@ -14,7 +14,7 @@ public class Card_Listener implements ActionListener{
 	private Home_Login homelogin;
 	
 	public Card_Listener(Home_Login home_Login) {
-		this.homelogin = homelogin;
+		this.homelogin = home_Login;
 	}
 
 
@@ -26,10 +26,17 @@ public class Card_Listener implements ActionListener{
 		
 		
 		if(src.equals("Create Name List")){
-			System.out.println("1234567890");
 			this.homelogin.InsertsList();
-//		}else if(src.equals("Đăng Nhập")){
-//			this.login.SelectById();
+		}else if(src.equals("NEXT")){
+			this.homelogin.InsertsCard();
+		}else if(src.equals("SAVE")){
+			this.homelogin.InsertsCardEnd();
+		}else if(src.equals("DELETE")){
+			System.out.println("1234567890");		
+			this.homelogin.DeleteCard();
+		}else if(src.equals("UPDATE")){
+			System.out.println("1234567890");		
+			this.homelogin.UpdateCard();
 		}
 	}
 	

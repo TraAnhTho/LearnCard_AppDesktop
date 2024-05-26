@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import JDBC_KetNoi.JDBC_KetNoi;
 import Model.Card;
+import Model.List_Card;
 import Model.User;
 
 public class Card_DAO implements DAOinterface<Card>{
@@ -86,7 +87,7 @@ public class Card_DAO implements DAOinterface<Card>{
 	public int Delete(Card t) {
 		// Xóa 1 card
 		int check=0;
-		
+		System.out.println(t.getName_Card());
 		try {
 			//Bước 1: Tạo kết nối
 			Connection c;
@@ -96,7 +97,7 @@ public class Card_DAO implements DAOinterface<Card>{
 			Statement st = c.createStatement();
 			
 			// Bước 3: Thực thi một câu lệnh SQL
-			String sql = "DELETE FROM flash_card.`user`"
+			String sql = "DELETE FROM flash_card.`card`"
 					+"WHERE `Name`='"+ t.getName_Card()+"';";
 			check = st.executeUpdate(sql);
 			
@@ -236,4 +237,40 @@ public class Card_DAO implements DAOinterface<Card>{
 		return Ketqua;
 	}
 
+	
+	public int CreateButtonCard(Card t) {
+		// Them 1 card vào db
+				int check=0;
+				
+				try {
+					//Bước 1: Tạo kết nối
+					Connection c;
+					c = JDBC_KetNoi.getConnection();
+					
+					// Bước 2: Tạo ra đối tượng statement
+					Statement st = c.createStatement();
+					
+					// Bước 3: Thực thi một câu lệnh SQL
+					String sql = "INSERT INTO flash_card.`card` (STT,`cardcol`,`Name`,`Dinh_Nghia`)"
+							+ "VALUES ("+null
+							+", '"+ t.getCardcol()
+							+"', '"+ t.getName_Card()
+							//can sua 
+							// them thread vào để dispose cua so van chạy
+							+"', '"+ t.getDefinition()
+							+"');";
+					check = st.executeUpdate(sql);
+					
+					// Bước 4: In câu lệnh
+					System.out.println("Bạn đã thực thi câu lệnh: "+sql);
+					System.out.println("Có: "+ check +" dòng bị thay đổi");
+					
+					//Bước 5: Ngắt kết nối
+					c.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return check;
+	}
 }

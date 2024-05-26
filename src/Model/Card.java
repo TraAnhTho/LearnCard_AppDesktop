@@ -21,12 +21,12 @@ public class Card {
 	public Card() {
 		//rong
 	}
-	public Card(String definition, String name_Card) {
+	public Card( String name_Card,String definition) {
 		super();
 		Definition = definition;
 		Name_Card = name_Card;
 	}
-	public Card(String cardcol, String definition, String name_Card) {
+	public Card(String cardcol, String name_Card, String definition) {
 		super();
 		this.cardcol = cardcol;
 		Definition = definition;

@@ -23,10 +23,11 @@ public class User_Listener implements ActionListener{
 		String src = e.getActionCommand();
 		System.out.println("Bạn đã nhấn nút: "+src);
 		
-		
-		if(src.equals("Đăng kí")){
+		if(src.equals(login.btn_dangki.getText())){
+			System.out.println("Dang ki click");
 			this.login.InsertsUser();
-		}else if(src.equals("Đăng Nhập")){
+		}else if(src.equals(login.btn_dangnhap.getText())){
+			System.out.println("Dang nhap click");
 			this.login.SelectById();
 		}
 	}

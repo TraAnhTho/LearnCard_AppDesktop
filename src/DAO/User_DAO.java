@@ -279,12 +279,7 @@ public class User_DAO implements DAOinterface<User>{
 		
 				c.close();
 				
-				try {
-					JOptionPane.showMessageDialog(new Home_Login(), "Bạn đã đăng kí thành công!!!");
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}	
+				
 			}	
 			} catch (Exception e2) {
 //				dispose();
@@ -316,7 +311,7 @@ public class User_DAO implements DAOinterface<User>{
 					System.out.println("check: "+check);
 					ResultSet rs = st.executeQuery(sql);
 					if(rs.next()==true) {
-						JOptionPane.showMessageDialog(new Home_Login(), "Tài khoản đã tồn tại!!!");
+						JOptionPane.showMessageDialog(new Home_Login(id), "Tài khoản đã tồn tại!!!");
 						System.out.println("success");
 
 					}else if(rs.next()==false) {
@@ -326,7 +321,7 @@ public class User_DAO implements DAOinterface<User>{
 					c.close();
 //					dispose();
 					//can sua
-					JOptionPane.showMessageDialog(new Home_Login(), "Đã Đăng Nhập");
+					JOptionPane.showMessageDialog(new Home_Login(id), "Đã Đăng Nhập");
 					
 					
 				} catch (Exception e2) {

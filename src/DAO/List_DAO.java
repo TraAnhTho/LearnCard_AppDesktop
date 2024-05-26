@@ -140,18 +140,19 @@ public class List_DAO implements DAOinterface<List_Card> {
 					
 					//Bước 4: 
 					while(rs.next()) {
-						int STT = rs.getInt("STT");
 						String listname = rs.getString("List_Name");
 						String cardcol = rs.getString("cardcol");
 						String usercol = rs.getString("usercol"); //ten cot hoặc thứ tự cột
 						
-						
+//			            Object []row={STT++,listname, cardcol, usercol};
+//			            dtm.addRow(row);
 						List_Card listcard = new List_Card(cardcol, usercol, listname);
 					}
 					
 					// In câu lệnh
 					System.out.println("Bạn đã thực thi câu lệnh: "+sql);
-					
+//					System.out.println("listcarrd: "+listcard);
+
 					//Bước 5: Ngắt kết nối
 					c.close();
 				} catch (SQLException e) {
