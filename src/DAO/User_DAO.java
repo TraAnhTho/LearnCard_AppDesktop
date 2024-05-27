@@ -245,7 +245,7 @@ public class User_DAO implements DAOinterface<User>{
 	public int Dang_Ki(User t) {
 		int check = 0;
 		try {
-			String url = "jdbc:mySQL://localhost:3306/hethongminimart";
+			String url = "jdbc:mySQL://localhost:3306/flash_card";
 			String username = "root";
 			String password = "081105";
 			// Tạo kết nối
@@ -254,14 +254,11 @@ public class User_DAO implements DAOinterface<User>{
 			System.out.println(ps);
 			ResultSet Rs = ps.executeQuery();
 			System.out.println(Rs);
-			System.out.println(Rs.next());
-
 			if(Rs.next()==true) {
 				JOptionPane.showMessageDialog(new Login(), "Tài khoản đã tồn tại!!!");
 				System.out.println("success");
 
 			}else if(Rs.next()==false) {
-//				System.out.println("Tài khoản chưa tồn tại và ta được kết nối!!!");
 				// Bước 1: Tạo kết nối
 				Connection c = JDBC_KetNoi.getConnection();
 				
@@ -276,15 +273,10 @@ public class User_DAO implements DAOinterface<User>{
 						+"', '"+ t.getPassWord()
 						+"') ON DUPLICATE KEY UPDATE `pass` = VALUES(`pass`), `usercol` = VALUES(`usercol`);";
 				check = st.executeUpdate(sql);
-		
+				JOptionPane.showMessageDialog(new Home_Login(t.getIdUser()), "Đăng kí thành công!!!");
 				c.close();
 				
-				try {
-					JOptionPane.showMessageDialog(new Home_Login(), "Bạn đã đăng kí thành công!!!");
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}	
+				
 			}	
 			} catch (Exception e2) {
 //				dispose();
@@ -310,25 +302,22 @@ public class User_DAO implements DAOinterface<User>{
 					String sql = "SELECT * FROM flash_card.`user` WHERE `idUser` = '"
 					+ id
 					+"' AND `pass` = '"
-							+ mk+"';";
+					+ mk+"';";
 					System.out.println("sql: "+sql);
-					ResultSet check = st.executeQuery(sql);
-					System.out.println("check: "+check);
 					ResultSet rs = st.executeQuery(sql);
-					if(rs.next()==true) {
-						JOptionPane.showMessageDialog(new Home_Login(), "Tài khoản đã tồn tại!!!");
+					System.out.println(rs);
+	
+				
+					if(rs.next()) {
+						JOptionPane.showMessageDialog(new Home_Login(id), "Đăng nhập thành công!!!");
 						System.out.println("success");
+						c.close();
 
-					}else if(rs.next()==false) {
+					}else {
 						JOptionPane.showMessageDialog(new Login(), "Tài khoản KHÔNG tồn tại!!!");
 						System.out.println("Tài khoản chưa tồn tại!!!");
+						c.close();
 					}
-					c.close();
-//					dispose();
-					//can sua
-					JOptionPane.showMessageDialog(new Home_Login(), "Đã Đăng Nhập");
-					
-					
 				} catch (Exception e2) {
 					System.err.println("An error occurred: " + e2.getMessage());
 		            e2.printStackTrace();

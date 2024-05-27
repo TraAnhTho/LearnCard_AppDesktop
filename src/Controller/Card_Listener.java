@@ -14,7 +14,7 @@ public class Card_Listener implements ActionListener{
 	private Home_Login homelogin;
 	
 	public Card_Listener(Home_Login home_Login) {
-		this.homelogin = homelogin;
+		this.homelogin = home_Login;
 	}
 
 
@@ -25,12 +25,23 @@ public class Card_Listener implements ActionListener{
 		System.out.println("Bạn đã nhấn nút: "+src);
 		
 		
-		if(src.equals("Create Name List")){
-			System.out.println("1234567890");
+		if(src.equals(homelogin.btn_create_list.getText())) {
 			this.homelogin.InsertsList();
-//		}else if(src.equals("Đăng Nhập")){
-//			this.login.SelectById();
+		}else if(src.equals(homelogin.btn_Next.getText())){
+			this.homelogin.InsertsCard();
+		}else if(src.equals(homelogin.btnSave.getText())){
+			this.homelogin.InsertsCardEnd();
+		}else if(src.equals(homelogin.btn_delete.getText())){
+			System.out.println("1234567890");		
+			this.homelogin.DeleteCard();
+		}else if(src.equals(homelogin.btn_update.getText())){
+			System.out.println("1234567890");		
+			this.homelogin.UpdateCard();
+		}else if(src.equals(homelogin.btn_delete_list.getText())){
+			System.out.println("1234567890");		
+			this.homelogin.DeleteList();
 		}
+		
 	}
 	
 }

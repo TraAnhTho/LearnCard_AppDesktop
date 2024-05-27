@@ -2,6 +2,9 @@ package View;
 import Model.Card;
 import Model.List_Card;
 import Model.User;
+import design.FButton;
+import design.FPasswordField;
+import design.FTextField;
 import JDBC_KetNoi.JDBC_KetNoi;
 
 
@@ -35,6 +38,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * 
+ */
 public class Login extends JFrame {
 	private Card card;
 	private List_Card listcard;
@@ -46,9 +52,12 @@ public class Login extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_user;
-	private JTextField textField_pass;
+	private FTextField textField;
+	private FTextField textField_user;
+	private FTextField textField_pass;
+	
+	public FButton btn_dangnhap;
+	public FButton btn_dangki;
 	
 
 
@@ -134,39 +143,63 @@ public class Login extends JFrame {
 		lblPass.setBounds(199, 258, 150, 52);
 		Interface.add(lblPass);
 		
-		textField_user = new JTextField();
+		textField_user = new FTextField();
 		textField_user.setBounds(393, 167, 294, 52);
 		Interface.add(textField_user);
 		textField_user.setColumns(10);
-//		textField_user =new JTextField(this.user.getIdUser()+"");
+//		textField_user =new FTextField(this.user.getIdUser()+"");
 //		this.user.setIdUser(textField_user.getText());
 //		this.user.setUsercol(textField_user.getText());
 
 
 		
 		
-		textField_pass = new JTextField();
+		textField_pass = new FTextField();
 		textField_pass.setBounds(393, 258, 294, 52);
 		Interface.add(textField_pass);
 		textField_pass.setColumns(10);
-//		textField_pass =new JTextField(this.user.getPassWord()+"");
+//		textField_pass =new FTextField(this.user.getPassWord()+"");
 //		this.user.setPassWord(textField_pass.getText());
 
 		
-		JButton btn_dangki = new JButton("Đăng nhập");
-		btn_dangki.addActionListener(ac);
-		btn_dangki.setBounds(393, 345, 129, 41);
-		Interface.add(btn_dangki);
-		JButton btn_dangnhap = new JButton("Đăng kí");
+		btn_dangnhap = new FButton();
+		//("Đăng nhập");
+		btn_dangnhap.setText("Đăng Nhập");
+		btn_dangnhap.setFont(new Font("Verdana", Font.PLAIN, 15));
+		btn_dangnhap.setForeground(new Color(0, 0, 0));
 		btn_dangnhap.addActionListener(ac);
-		btn_dangnhap.setBounds(558, 345, 129, 41);
+		btn_dangnhap.setBounds(393, 345, 129, 41);
 		Interface.add(btn_dangnhap);
+		btn_dangki = new FButton();
+		//("Đăng kí");
+		btn_dangki.setText("Đăng Kí");
+		btn_dangki.setForeground(new Color(255, 255, 255));
+		btn_dangki.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_dangki.addActionListener(ac);
+		btn_dangki.setBounds(558, 345, 129, 41);
+		Interface.add(btn_dangki);
 		
 	}
 	 
 
 	 
-	 public void SelectById() {
+	 public FButton getBtn_dangnhap() {
+		return btn_dangnhap;
+	}
+
+	public void setBtn_dangnhap(FButton btn_dangnhap) {
+		this.btn_dangnhap = btn_dangnhap;
+	}
+
+	public FButton getBtn_dangki() {
+		return btn_dangki;
+	}
+
+	public void setBtn_dangki(FButton btn_dangki) {
+		this.btn_dangki = btn_dangki;
+	}
+
+	public void SelectById() {
 		 System.out.println("Đăng Nhập click");
 		 if(textField_user.getText().trim().isEmpty()||textField_pass.getText().trim().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!!");
@@ -176,7 +209,23 @@ public class Login extends JFrame {
 		 }
 	 }
 	 
-	 public void InsertsUser() {
+	 public FTextField getTextField_user() {
+		return textField_user;
+	}
+
+	public void setTextField_user(FTextField textField_user) {
+		this.textField_user = textField_user;
+	}
+
+	public FTextField getTextField_pass() {
+		return textField_pass;
+	}
+
+	public void setTextField_pass(FTextField textField_pass) {
+		this.textField_pass = textField_pass;
+	}
+
+	public void InsertsUser() {
 		 if(textField_user.getText().trim().isEmpty()||textField_pass.getText().trim().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!!");
 		 }else {
@@ -185,6 +234,10 @@ public class Login extends JFrame {
 			 dispose();
 		 }
 	}
+
+//	public void addButtonClickListener(ActionListener ac) {
+//		Login.addActionListener(ac);
+//	}
 	 
 
 }
