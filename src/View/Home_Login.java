@@ -51,6 +51,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import View.Login;
 import design.FButton;
+import design.FTextField;
 public class Home_Login extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private Card card;
@@ -64,14 +65,14 @@ public class Home_Login extends JFrame {
 
 	
 	private JPanel contentPane;
-	private JTextField textField;
+	private FTextField textField;
 	private JLabel lbl_Edit;
 	private javax.swing.JPanel panel_tools;
 	private javax.swing.JPanel panel_topic;
-	private JTextField textField_nameedit;
-	private JTextField textField_card;
-	private JTextField textField_desedit;
-	private JTextField textField_des;
+	private FTextField textField_nameedit;
+	private FTextField textField_card;
+	private FTextField textField_desedit;
+	private FTextField textField_des;
 	protected JComponent panel_Create;
 	private JTable table;
 	private JTable table1;
@@ -93,7 +94,7 @@ public class Home_Login extends JFrame {
 	public FButton btn_update;
 	public FButton btn_edit;
 	public FButton btn_delete_list;
-	private JTextField txt_list_card;
+	private FTextField txt_list_card;
 	private DefaultTableModel dtm1;
 	private String namelist;
 	private JLabel Background_Main;
@@ -185,7 +186,7 @@ public class Home_Login extends JFrame {
 		
 		panel_home = new JPanel();
 		panel_home.setBackground(new Color(26, 29, 40));
-		panel_home.setBounds(185, 57, 135, 49);
+		panel_home.setBounds(185, 57, 135, 92);
 		Interface.add(panel_home);
 		panel_home.setLayout(new GridLayout(0, 1, 0, 0));
 		panel_home.setVisible(false);
@@ -196,16 +197,14 @@ public class Home_Login extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				 int result = JOptionPane.showConfirmDialog(null,
-	                        "Bạn có chắc muốn lưu sinh viên này",
+	                        "Bạn có chắc muốn đăng xuất???",
 	                        "Xác nhận",
 	                        JOptionPane.YES_NO_OPTION,
 	                        JOptionPane.QUESTION_MESSAGE);
 	                if(result == JOptionPane.YES_OPTION){
 	                   new Home();
-	                }else if (result == JOptionPane.NO_OPTION){
-	                    
-	                }else {
-	                    
+	                }else if (result == JOptionPane.NO_OPTION) {   
+	                }else { 
 	                }
 
 			}
@@ -214,6 +213,30 @@ public class Home_Login extends JFrame {
 		lbl_logout.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		lbl_logout.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_home.add(lbl_logout);
+		
+		JLabel lblNewLabel_3 = new JLabel("ADMIN");
+		lblNewLabel_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println(iduser);
+				if(iduser.equals("admin")) {
+					System.out.println(iduser);
+					try {
+						new admin_view(iduser);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}else {
+					JOptionPane.showMessageDialog(null,"Bạn không phải admin", "Đây là cửa số thông báo", 
+			                JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		lblNewLabel_3.setForeground(new Color(255, 255, 255));
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_home.add(lblNewLabel_3);
 		
 		
 		
@@ -279,9 +302,6 @@ public class Home_Login extends JFrame {
 		Nav_Bar.add(Topic);
 		
 		
-		
-		
-		
 		JLabel lbl_create = new JLabel("Create List Card");
 		lbl_create.setForeground(new Color(255, 255, 255));
 		lbl_create.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
@@ -328,7 +348,7 @@ public class Home_Login extends JFrame {
 		Nav_Bar.add(Search);
 		Search.setLayout(null);
 		
-		textField = new JTextField();
+		textField = new FTextField();
 		textField.setBounds(23, 11, 166, 38);
 		Search.add(textField);
 		textField.setColumns(10);
@@ -370,7 +390,7 @@ public class Home_Login extends JFrame {
 		lblNewLabel.setBounds(110, 87, 221, 58);
 		panel_Create_List.add(lblNewLabel);
 		
-		txt_list_card = new JTextField();
+		txt_list_card = new FTextField();
 		txt_list_card.setBounds(110, 169, 484, 69);
 		panel_Create_List.add(txt_list_card);
 		txt_list_card.setColumns(10);
@@ -398,7 +418,7 @@ public class Home_Login extends JFrame {
 		lblTeminolofy.setBounds(125, 44, 208, 97);
 		panel_Create.add(lblTeminolofy);
 		
-		textField_card = new JTextField();
+		textField_card = new FTextField();
 		textField_card.setBounds(376, 44, 587, 97);
 		panel_Create.add(textField_card);
 		textField_card.setColumns(10);
@@ -409,7 +429,7 @@ public class Home_Login extends JFrame {
 		lblDefinition.setBounds(125, 152, 208, 97);
 		panel_Create.add(lblDefinition);
 		
-		textField_des = new JTextField();
+		textField_des = new FTextField();
 		textField_des.setColumns(10);
 		textField_des.setBounds(376, 152, 587, 97);
 		panel_Create.add(textField_des);
@@ -483,7 +503,6 @@ public class Home_Login extends JFrame {
 		
 		//Table card
 				String[]header3={"STT", "Tên danh sách","Other", "Other"};
-
 		        dtm1=new DefaultTableModel(header3, 0){
 		        	
 		       };
@@ -529,7 +548,7 @@ public class Home_Login extends JFrame {
 		lblNewLabel1.setBounds(125, 44, 208, 97);
 		panel_Edit.add(lblNewLabel1);
 		
-		textField_nameedit = new JTextField();
+		textField_nameedit = new FTextField();
 		textField_nameedit.setBackground(new Color(192, 192, 192));
 		textField_nameedit.setBounds(376, 44, 587, 97);
 		panel_Edit.add(textField_nameedit);
@@ -541,7 +560,7 @@ public class Home_Login extends JFrame {
 		lblDefinition1.setBounds(125, 152, 208, 97);
 		panel_Edit.add(lblDefinition1);
 		
-		textField_desedit = new JTextField();
+		textField_desedit = new FTextField();
 		textField_desedit.setColumns(10);
 		textField_desedit.setBounds(376, 152, 587, 97);
 		panel_Edit.add(textField_desedit);
@@ -556,107 +575,90 @@ public class Home_Login extends JFrame {
 		btn_update.setBounds(809, 271, 153, 45);
 		panel_Edit.add(btn_update);
 		
-		panel_Delete_List = new JPanel();
-		panel_Delete_List.setBackground(new Color(40, 46, 62));
-		panel_Delete_List.setBounds(0, 57, 1006, 416);
-		Interface.add(panel_Delete_List);
-		panel_Delete_List.setLayout(null);
-		panel_Delete_List.setVisible(false);
-		
-		//Table DeleteList
-		String[]header1={"STT", "Tên danh sách","Other","Other"};
-        dtm=new DefaultTableModel(header1, 0){
-       };
-//        getContentPane()
-        panel_Delete_List.add(new JScrollPane(table=new JTable(dtm)));
-        table.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(118, 203, 33)));
-        table.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-        table.setBackground(new Color(255, 255, 255));
-        table.setForeground(new Color(118, 203, 33));
-//      table.setEditingColumn(null);
-        table.setRowHeight(30);
-        table.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 15));
-        JScrollPane scrollPane1 = new JScrollPane(table);
-		scrollPane1.setBounds(137, 110, 721, 209);
-		panel_Delete_List.add(scrollPane1);
-		//	chèn dữ liệu vào
-       LoadDBData2JTable();
-		
-		JLabel lblNewLabel_2_2 = new JLabel("Chọn danh sách \r\ncần xóa:");
-		lblNewLabel_2_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_2_2.setBounds(137, 54, 332, 45);
-		panel_Delete_List.add(lblNewLabel_2_2);
-		
-		btn_select_delete = new FButton();
-		btn_select_delete.setText("SELECT_DELETE");
-		btn_select_delete.setBackground(new Color(175, 215, 130));
-//		btn_select_delete.addActionListener(ac);
-		btn_select_delete.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_select_delete.setBounds(646, 330, 112, 41);
-		panel_Delete_List.add(btn_select_delete);
-		
-		btn_delete_list = new FButton();
-		btn_delete_list.setText("DELETE_LIST");
-		btn_delete_list.setBackground(new Color(175, 215, 130));
-		btn_delete_list.addActionListener(ac);
-		btn_delete_list.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_delete_list.setBounds(846, 330, 112, 41);
-		panel_Delete_List.add(btn_delete_list);
-		
-		panel_Delete_Card = new JPanel();
-		Interface.add(panel_Delete_Card);
-		panel_Delete_Card.setBackground(new Color(40, 46, 62));
-		panel_Delete_Card.setLayout(null);
-		panel_Delete_Card.setBounds(0, 57, 1006, 416);
-		Interface.add(panel_Edit_Card);
-		panel_Delete_Card.setVisible(false);
-
-		
-		btn_delete = new FButton();
-		btn_delete.setText("DELETE");
-		btn_delete.setBackground(new Color(175, 215, 130));
-		btn_delete.addActionListener(ac);
-		btn_delete.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btn_delete.setBounds(746, 330, 112, 41);
-		panel_Delete_Card.add(btn_delete);
-		//Table card
-				String[]header4={"STT", "Tên danh sách","Other", "Other"};
-
-		        dtm1=new DefaultTableModel(header4, 0){
-		        	
-		       };
-		       panel_Delete_Card.add(new JScrollPane(table1=new JTable(dtm1)));
-		        table1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(118, 203, 33)));
-		        table1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		        table1.setBackground(new Color(255, 255, 255));
-		        table1.setForeground(new Color(118, 203, 33));
-		        table1.setRowHeight(30);
-		        table1.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 15));
-		        JScrollPane scrollPane4 = new JScrollPane(table1);
-				scrollPane4.setBounds(137, 110, 721, 209);
-				panel_Delete_Card.add(scrollPane4);
-
-				//	chèn dữ liệu vào
-//		       LoadDBData3JTable(txt_list_card.getText());
-		
-		
-		// chuột
-//		Home.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//				panel_tools.setVisible(false);
-//				panel_Edit_List.setVisible(false);
-//				panel_Edit_Card.setVisible(false);
-//				panel_Edit.setVisible(false);
-//				panel_Create.setVisible(false);
-//				panel_Create_List.setVisible(false);
-//				panel_Delete_List.setVisible(false);
-//				panel_Delete_Card.setVisible(false);
-//				Background_Main.setVisible(true);
+//		panel_Delete_List = new JPanel();
+//		panel_Delete_List.setBackground(new Color(40, 46, 62));
+//		panel_Delete_List.setBounds(0, 57, 1006, 416);
+//		Interface.add(panel_Delete_List);
+//		panel_Delete_List.setLayout(null);
+//		panel_Delete_List.setVisible(false);
+//		
+//		//Table DeleteList
+//		String[]header1={"STT", "Tên danh sách","Other","Other"};
+//        dtm=new DefaultTableModel(header1, 0){
+//       };
+////        getContentPane()
+//        panel_Delete_List.add(new JScrollPane(table=new JTable(dtm)));
+//        table.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(118, 203, 33)));
+//        table.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+//        table.setBackground(new Color(255, 255, 255));
+//        table.setForeground(new Color(118, 203, 33));
+////      table.setEditingColumn(null);
+//        table.setRowHeight(30);
+//        table.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 15));
+//        JScrollPane scrollPane1 = new JScrollPane(table);
+//		scrollPane1.setBounds(137, 110, 721, 209);
+//		panel_Delete_List.add(scrollPane1);
+//		//	chèn dữ liệu vào
+//       LoadDBData2JTable();
+//		
+//		JLabel lblNewLabel_2_2 = new JLabel("Chọn danh sách \r\ncần xóa:");
+//		lblNewLabel_2_2.setForeground(new Color(255, 255, 255));
+//		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.BOLD, 15));
+//		lblNewLabel_2_2.setBounds(137, 54, 332, 45);
+//		panel_Delete_List.add(lblNewLabel_2_2);
+//		
+//		btn_select_delete = new FButton();
+//		btn_select_delete.setText("SELECT_DELETE");
+//		btn_select_delete.setBackground(new Color(175, 215, 130));
+////		btn_select_delete.addActionListener(ac);
+//		btn_select_delete.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//		btn_select_delete.setBounds(646, 330, 112, 41);
+//		panel_Delete_List.add(btn_select_delete);
+//		
+//		btn_delete_list = new FButton();
+//		btn_delete_list.setText("DELETE_LIST");
+//		btn_delete_list.setBackground(new Color(175, 215, 130));
+//		btn_delete_list.addActionListener(ac);
+//		btn_delete_list.setFont(new Font("Tahoma", Font.PLAIN, 15));
+//		btn_delete_list.setBounds(846, 330, 112, 41);
+//		panel_Delete_List.add(btn_delete_list);
+//		
+//		panel_Delete_Card = new JPanel();
+//		Interface.add(panel_Delete_Card);
+//		panel_Delete_Card.setBackground(new Color(40, 46, 62));
+//		panel_Delete_Card.setLayout(null);
+//		panel_Delete_Card.setBounds(0, 57, 1006, 416);
+//		Interface.add(panel_Edit_Card);
+//		panel_Delete_Card.setVisible(false);
 //
-//			}
-//		});
+//		
+//		btn_delete = new FButton();
+//		btn_delete.setText("DELETE");
+//		btn_delete.setBackground(new Color(175, 215, 130));
+//		btn_delete.addActionListener(ac);
+//		btn_delete.setFont(new Font("Tahoma", Font.BOLD, 15));
+//		btn_delete.setBounds(746, 330, 112, 41);
+//		panel_Delete_Card.add(btn_delete);
+//		//Table card
+//				String[]header4={"STT", "Tên danh sách","Other", "Other"};
+//
+//		        dtm1=new DefaultTableModel(header4, 0){
+//		        	
+//		       };
+//		       panel_Delete_Card.add(new JScrollPane(table1=new JTable(dtm1)));
+//		        table1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(118, 203, 33)));
+//		        table1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+//		        table1.setBackground(new Color(255, 255, 255));
+//		        table1.setForeground(new Color(118, 203, 33));
+//		        table1.setRowHeight(30);
+//		        table1.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 15));
+//		        JScrollPane scrollPane4 = new JScrollPane(table1);
+//				scrollPane4.setBounds(137, 110, 721, 209);
+//				panel_Delete_Card.add(scrollPane4);
+//
+//				//	chèn dữ liệu vào
+////		       LoadDBData3JTable(txt_list_card.getText());
+		
 		lbl_create.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -678,6 +680,7 @@ public class Home_Login extends JFrame {
 			}
 			}
 		});
+		
 		// EditLabel
 		lbl_Edit.addMouseListener(new MouseAdapter() {
 			@Override
@@ -691,8 +694,6 @@ public class Home_Login extends JFrame {
 				panel_Delete_List.setVisible(false);
 				panel_Delete_Card.setVisible(false);
 				Background_Main.setVisible(false);
-
-
 			}
 		});
 		// DeleteLabel
@@ -733,10 +734,12 @@ public class Home_Login extends JFrame {
 				try {
 					DefaultTableModel model_table = (DefaultTableModel) table.getModel();
 					int i_row = table.getSelectedRow();
-					String namelist = model_table.getValueAt(i_row, 1) +"";
-					System.out.println(namelist); 
+					System.out.println("irow: " + i_row);
+					System.out.println("model_edit: "+model_table.getValueAt(i_row,1));
+					String tableedit = model_table.getValueAt(i_row,1) +"";
+					System.out.println("name-edit: "+tableedit); 
 					
-					txt_list_card.setText(namelist);
+					txt_list_card.setText(tableedit);
 					System.out.println(txt_list_card.getText());
 					
 					panel_tools.setVisible(false);
@@ -748,7 +751,7 @@ public class Home_Login extends JFrame {
 					panel_Delete_List.setVisible(false);
 					panel_Delete_Card.setVisible(false);
 					Background_Main.setVisible(false);
-				    LoadDBData3JTable(namelist);
+				    LoadDBData3JTable(tableedit);
 	
 				} catch (Exception e2) {
 					System.err.println("An error occurred: " + e2.getMessage());
@@ -770,8 +773,10 @@ public class Home_Login extends JFrame {
 				try {
 					DefaultTableModel model_table = (DefaultTableModel) table.getModel();
 					int i_row = table.getSelectedRow();
+					System.out.println("irow_delete: " + i_row);
+					System.out.println("model_delete "+model_table.getValueAt(i_row,1));
 					String namelist = model_table.getValueAt(i_row, 1) +"";
-					System.out.println(namelist); 
+					System.out.println("name_delete"+namelist); 
 					
 					txt_list_card.setText(namelist);
 					System.out.println(txt_list_card.getText());
@@ -823,6 +828,7 @@ public class Home_Login extends JFrame {
         ResultSet rs=conn.createStatement().executeQuery(sql);
     	int STT=1;
         while(rs.next()){
+//			System.out.println("while: " +rs.next());
 			String listname = rs.getString("List_Name");
 			String cardcol = rs.getString("cardcol");
 			String usercol = rs.getString("usercol"); //ten cot hoặc thứ tự cột
@@ -838,12 +844,14 @@ public class Home_Login extends JFrame {
 				String sql="select *from card where cardcol='"+listname+"';";
 				System.err.println(sql);
 				ResultSet rs=conn.createStatement().executeQuery(sql);
-				System.out.println(rs.next());
+				System.out.println("ngoài while: " +rs.next());
 				int STT=1;
 				while(rs.next()){
+					System.out.println("trong while: " +rs.next());
 					String cardcol = rs.getString("cardcol");
 					String name = rs.getString("Name");
-					String des = rs.getString("Dinh_Nghia"); //ten cot hoặc thứ tự cột
+					String des = rs.getString("Dinh_Nghia"); //ten cot hoặc thứ tự cột\
+					System.out.println(cardcol);
 				    Object []row={STT++,cardcol,name,des};
 				    dtm1.addRow(row);
 				}

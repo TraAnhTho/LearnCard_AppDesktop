@@ -12,6 +12,7 @@ import DAO.User_DAO;
 import Model.Card;
 import Model.List_Card;
 import Model.User;
+import design.FButton;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-//package quiz.app;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -42,7 +42,7 @@ public class Quiz extends JFrame implements ActionListener {
   JLabel qno, question;
   JRadioButton opt1, opt2, opt3, opt4;
   ButtonGroup groupoptions;
-  JButton next, submit, lifeline;
+  FButton next, submit, lifeline;
   
   	private Card card;
 	private List_Card listcard;
@@ -51,8 +51,8 @@ public class Quiz extends JFrame implements ActionListener {
 	private List_DAO listDAO;
 	private User_DAO userDAO;
 	private Login login;
-	
-	List<String> randomSelection;
+	List<String> random_dapan;
+	List<QuestionAnswer> randomSelection;
   public static int timer = 15;
   public static int ans_given = 0;
   public static int count = 0;
@@ -88,89 +88,101 @@ public class Quiz extends JFrame implements ActionListener {
       LoadDBDataJTable();
       System.out.println("123");
 
-
+      System.out.println(randomSelection.size());
       if (randomSelection == null || randomSelection.isEmpty()) {
           System.out.println("Data not loaded");
           return;
       }
 
-      //      "Number of primitive data types in Java are.?";
-      String value = randomSelection.get(1);
+      QuestionAnswer value = randomSelection.get(1);
       System.out.println(value);
-      questions[0][0] = value; 
-      questions[0][1] = "6";
-      questions[0][2] = "7";
-      questions[0][3] = "8";
-      questions[0][4] = "9";
+      questions[0][0] = value.getQuestion();
+      questions[0][1] = random_dapan.get(1);
+      questions[0][2] = random_dapan.get(2);
+      questions[0][3] = value.getAnswer();
+      questions[0][4] = random_dapan.get(3);
+      answers[0][1] = value.getAnswer();
 
       value = randomSelection.get(2);
-      questions[1][0] = value;
-    		  //"What is the size of float and double in java.?";
-      questions[1][1] = "32 and 64";
-      questions[1][2] = "32 and 32";
-      questions[1][3] = "64 and 64";
-      questions[1][4] = "64 and 32";
+      questions[1][0] = value.getQuestion();
+      questions[1][1] = value.getAnswer();
+      questions[1][2] = random_dapan.get(4);
+      questions[1][3] = random_dapan.get(5);
+      questions[1][4] = random_dapan.get(6);
+      answers[1][1] = value.getAnswer();
+     
 
       value = randomSelection.get(3);
-      questions[2][0] = value;
-    		  //"Automatic type conversion is possible in which of the possible cases?";
-      questions[2][1] = "Byte to int";
-      questions[2][2] = "Int to Long";
-      questions[2][3] = "Long to int";
-      questions[2][4] = "Short to int";
+      questions[2][0] = value.getQuestion();
+      questions[2][1] = random_dapan.get(7);
+      questions[2][2] = value.getAnswer();
+      questions[2][3] = random_dapan.get(8);
+      questions[2][4] = random_dapan.get(9);
+      answers[2][1] = value.getAnswer();
+     
+      
+      value = randomSelection.get(4);
+      questions[3][0] = value.getQuestion();
+      questions[3][1] = value.getAnswer();
+      questions[3][2] = random_dapan.get(10);
+      questions[3][3] = random_dapan.get(11);
+      questions[3][4] = random_dapan.get(12);
+      answers[3][1] = value.getAnswer();
+      
 
-      questions[3][0] = "When an array is passed to a method, what does the method receive?";
-      questions[3][1] = "The reference of the array";
-      questions[3][2] = "A copy of the array";
-      questions[3][3] = "Length of the array";
-      questions[3][4] = "Copy of first element";
+      value = randomSelection.get(5);
+      questions[4][0] = value.getQuestion();
+      questions[4][1] = random_dapan.get(13);
+      questions[4][2] = value.getAnswer();
+      questions[4][3] = random_dapan.get(14);
+      questions[4][4] = random_dapan.get(15);
+      answers[4][1] = value.getAnswer();
+      
 
-      questions[4][0] = "Arrays in java are.?";
-      questions[4][1] = "Object References";
-      questions[4][2] = "Objects";
-      questions[4][3] = "Primitive data type";
-      questions[4][4] = "None";
+      value = randomSelection.get(6);
+      questions[5][0] = value.getQuestion();
+      questions[5][1] = value.getAnswer();
+      questions[5][2] = random_dapan.get(1);
+      questions[5][3] = random_dapan.get(3);
+      questions[5][4] = random_dapan.get(5);
+      answers[5][1] = value.getAnswer();
+      
 
-      questions[5][0] = "When is the object created with new keyword?";
-      questions[5][1] = "At rum time";
-      questions[5][2] = "At compile time";
-      questions[5][3] = "Depends on the code";
-      questions[5][4] = "None";
+      value = randomSelection.get(6);
+      questions[6][0] = value.getQuestion();
+      questions[6][1] = random_dapan.get(7);
+      questions[6][2] = random_dapan.get(9);
+      questions[6][3] = value.getAnswer();
+      questions[6][4] = random_dapan.get(11);
+      answers[6][1] = value.getAnswer();
+     
 
-      questions[6][0] = "Identify the corrected definition of a package.?";
-      questions[6][1] = "A package is a collection of editing tools";
-      questions[6][2] = "A package is a collection of Classes";
-      questions[6][3] = "A package is a collection of Classes and interfaces";
-      questions[6][4] = "A package is a collection of interfaces";
+      value = randomSelection.get(7);
+      questions[7][0] = value.getQuestion();
+      questions[7][1] = random_dapan.get(13);
+      questions[7][2] = random_dapan.get(15);
+      questions[7][3] = value.getAnswer();
+      questions[7][4] = random_dapan.get(2);
+      answers[7][1] = value.getAnswer();
+      
 
-      questions[7][0] = "compareTo() returns";
-      questions[7][1] = "True";
-      questions[7][2] = "False";
-      questions[7][3] = "An int value";
-      questions[7][4] = "None";
+      value = randomSelection.get(8);
+      questions[8][0] = value.getQuestion();
+      questions[8][1] = value.getAnswer();
+      questions[8][2] = random_dapan.get(4);
+      questions[8][3] = random_dapan.get(6);
+      questions[8][4] = random_dapan.get(8);
+      answers[8][1] = value.getAnswer();
+      
 
-      questions[8][0] = "To which of the following does the class string belong to.";
-      questions[8][1] = "java.lang";
-      questions[8][2] = "java.awt";
-      questions[8][3] = "java.applet";
-      questions[8][4] = "java.String";
-
-      questions[9][0] = "Total constructor string class have.?";
-      questions[9][1] = "3";
-      questions[9][2] = "7";
-      questions[9][3] = "13";
-      questions[9][4] = "20";
-
-      answers[0][1] = "8";
-      answers[1][1] = "32 and 64";
-      answers[2][1] = "Int to Long";
-      answers[3][1] = "The reference of the array";
-      answers[4][1] = "Objects";
-      answers[5][1] = "At rum time";
-      answers[6][1] = "A package is a collection of Classes and interfaces";
-      answers[7][1] = "An int value";
-      answers[8][1] = "java.lang";
-      answers[9][1] = "13";
+      value = randomSelection.get(9);
+      questions[9][0] = value.getQuestion();
+      questions[9][1] = random_dapan.get(10);
+      questions[9][2] = random_dapan.get(12);
+      questions[9][3] = random_dapan.get(14);
+      questions[9][4] = value.getAnswer();
+      answers[9][1] = value.getAnswer();
+      
 
       opt1 = new JRadioButton();
       opt1.setBounds(99, 276, 700, 30);
@@ -202,7 +214,8 @@ public class Quiz extends JFrame implements ActionListener {
       groupoptions.add(opt3);
       groupoptions.add(opt4);
 
-      next = new JButton("Next");
+      next = new FButton();
+    		  next.setText("Next");
       next.setBounds(392, 469, 200, 30);
       next.setFont(new Font("Tahoma", Font.PLAIN, 18));
       next.setBackground(new Color(22, 99, 54));
@@ -210,7 +223,8 @@ public class Quiz extends JFrame implements ActionListener {
       next.addActionListener(this);
       getContentPane().add(next);
 
-      lifeline = new JButton("Help");
+      lifeline = new FButton();
+    		  lifeline.setText("Exit");
       lifeline.setBounds(602, 469, 200, 30);
       lifeline.setFont(new Font("Tahoma", Font.PLAIN, 18));
       lifeline.setBackground(new Color(22, 99, 54));
@@ -218,7 +232,8 @@ public class Quiz extends JFrame implements ActionListener {
       lifeline.addActionListener(this);
       getContentPane().add(lifeline);
 
-      submit = new JButton("Submit");
+      submit = new FButton();
+    		  submit.setText("Submit");
       submit.setBounds(812, 469, 200, 30);
       submit.setForeground(Color.BLACK);
       submit.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -381,32 +396,41 @@ public class Quiz extends JFrame implements ActionListener {
 	        String jdbcUrl = "jdbc:mysql://localhost:3306/flash_card"; 
 	        String username = "TraAnhTho"; 
 	        String password = "081105";
-
-	        List<String>list = new ArrayList<>();
+	        
+	        List<QuestionAnswer>list = new ArrayList<>();
+	        List<String>list_cauhoi = new ArrayList<>();
+	        List<String>list_dapan = new ArrayList<>();
 
 	        try (Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
 	             Statement statement = connection.createStatement();
-	             ResultSet rs = statement.executeQuery("SELECT Name FROM  flash_card.`Card`")) { 
+	             ResultSet rs = statement.executeQuery("SELECT * FROM  flash_card.`Card`")) { 
 
 	            // Lấy danh sách từ kết quả truy vấn
 	            while (rs.next()) {
-	                list.add(rs.getString("Name")); 
+	                list.add(new QuestionAnswer(rs.getString("Name"), rs.getString("Dinh_Nghia"))); 
+	                list_dapan.add(rs.getString("Dinh_Nghia"));
 	            }
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
 	        // Trộn ngẫu nhiên danh sách
 	        Collections.shuffle(list);
+	        Collections.shuffle(list_dapan);
 	        
 	        // Chọn 10 giá trị đầu tiên từ danh sách đã được trộn
-	        List<String> randomSelection = list.subList(0, Math.min(10, list.size()));
+	         randomSelection = list.subList(0, Math.min(10, list.size()));
+	         random_dapan = list_dapan.subList(0, Math.min(16, list_dapan.size()));
 	        System.out.println(randomSelection);
+	        System.out.println(random_dapan);
+
 	        // Hiển thị các giá trị đã chọn
-	        for (int i = 0; i < randomSelection.size(); i++) {
-	        	System.out.println();
-	            String value = randomSelection.get(i);
-	            System.out.println(value); 
-	        }	    
+	        for (int i = 0; i < random_dapan.size(); i++) {
+	            String dapan = random_dapan.get(i);
+	            System.out.println(dapan); 
+	        }	   
+	        for (QuestionAnswer qa : randomSelection) {
+	            System.out.println("Câu hỏi: " + qa.question);
+	            System.out.println("Đáp án: " + qa.answer);
 	        }
-  
+	}
 }
