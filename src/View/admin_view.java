@@ -40,17 +40,17 @@ public class admin_view extends JFrame {
 	private String iduser;
 	private FTextField textField;
 	private FTextField textField_1;
-	private FTextField textField_2;
-	private FTextField textField_3;
+	private FTextField txt_edit_iduser;
+	private FTextField txt_edit_passuser;
 	private FTextField textField_4;
 	private FTextField textField_5;
 	private FTextField textField_6;
 	private FTextField textField_7;
-	private DefaultTableModel dtm;
+	private DefaultTableModel dtm_user;
 	private JTable table;
-	private DefaultTableModel dtm1;
+	private DefaultTableModel dtm_list;
 	private JTable table1;
-	private DefaultTableModel dtm2;
+	private DefaultTableModel dtm_card;
 	private JTable table2;
 	
 	private JPanel panel_user;
@@ -139,7 +139,7 @@ public class admin_view extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(26, 29, 40));
-		panel.setBounds(44, 71, 137, 157);
+		panel.setBounds(44, 110, 137, 157);
 		Interface.add(panel);
 		panel.setLayout(null);
 		
@@ -153,6 +153,8 @@ public class admin_view extends JFrame {
 				panel_edit_user.setVisible(false);
 				panel_edit_list.setVisible(false);
 				panel_edit_card.setVisible(false);
+				panel_adduser.setVisible(false);
+
 			}
 		});
 		User.setHorizontalAlignment(SwingConstants.CENTER);
@@ -170,6 +172,8 @@ public class admin_view extends JFrame {
 				panel_edit_user.setVisible(false);
 				panel_edit_list.setVisible(false);
 				panel_edit_card.setVisible(false);
+				panel_adduser.setVisible(false);
+
 			}
 		});
 		list.setHorizontalAlignment(SwingConstants.CENTER);
@@ -187,6 +191,8 @@ public class admin_view extends JFrame {
 				panel_edit_user.setVisible(false);
 				panel_edit_list.setVisible(false);
 				panel_edit_card.setVisible(false);
+				panel_adduser.setVisible(false);
+
 			}
 		});
 		Card.setHorizontalAlignment(SwingConstants.CENTER);
@@ -199,14 +205,16 @@ public class admin_view extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				panel_user.setVisible(false);
 				panel_list.setVisible(false);
-				panel_card.setVisible(true);
+				panel_card.setVisible(false);
 				panel_edit_user.setVisible(false);
 				panel_edit_list.setVisible(false);
 				panel_edit_card.setVisible(false);
+				panel_adduser.setVisible(true);
+
 			}
 		});
 		adduser.setFont(new Font("Tahoma", Font.BOLD, 15));
-		adduser.setBounds(44, 242, 137, 52);
+		adduser.setBounds(44, 278, 137, 52);
 		Interface.add(adduser);
 		
 		panel_adduser = new JPanel();
@@ -240,9 +248,9 @@ public class admin_view extends JFrame {
 		textField_1.setBounds(312, 138, 260, 45);
 		panel_adduser.add(textField_1);
 		
-		JButton btnNewButton_3 = new JButton("New button");
-		btnNewButton_3.setBounds(412, 194, 160, 50);
-		panel_adduser.add(btnNewButton_3);
+		JButton btn_addUsser = new JButton("ADD");
+		btn_addUsser.setBounds(412, 194, 160, 50);
+		panel_adduser.add(btn_addUsser);
 		
 		//
 		 panel_user = new JPanel();
@@ -256,9 +264,9 @@ public class admin_view extends JFrame {
 		
 		//Table User
 				String[]header={"STT", "Tên danh sách","Other","Other"};
-		        dtm=new DefaultTableModel(header, 0){
+		        dtm_user=new DefaultTableModel(header, 0){
 		       };
-		        panel_user.add(new JScrollPane(table=new JTable(dtm)));
+		        panel_user.add(new JScrollPane(table=new JTable(dtm_user)));
 		        table.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(118, 203, 33)));
 		        table.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		        table.setBackground(new Color(255, 255, 255));
@@ -271,16 +279,12 @@ public class admin_view extends JFrame {
 				//	chèn dữ liệu vào
 		       LoadDBDataUser();
 		
-		JButton btnNewButton_4 = new JButton("New button");
-		btnNewButton_4.setBounds(427, 260, 130, 43);
-		panel_user.add(btnNewButton_4);
+		JButton btn_detele_user = new JButton("Delete User");
+		btn_detele_user.setBounds(275, 260, 130, 43);
+		panel_user.add(btn_detele_user);
 		
-		JButton btnNewButton_4_1 = new JButton("New button");
-		btnNewButton_4_1.setBounds(275, 260, 130, 43);
-		panel_user.add(btnNewButton_4_1);
-		
-		JButton btnNewButton_4_2 = new JButton("New button");
-		btnNewButton_4_2.addMouseListener(new MouseAdapter() {
+		JButton btn_edit_user = new JButton("Edit User");
+		btn_edit_user.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				panel_user.setVisible(false);
@@ -289,10 +293,12 @@ public class admin_view extends JFrame {
 				panel_edit_user.setVisible(true);
 				panel_edit_list.setVisible(false);
 				panel_edit_card.setVisible(false);
+				panel_adduser.setVisible(false);
+
 			}
 		});
-		btnNewButton_4_2.setBounds(123, 260, 130, 43);
-		panel_user.add(btnNewButton_4_2);
+		btn_edit_user.setBounds(123, 260, 130, 43);
+		panel_user.add(btn_edit_user);
 		
 		//
 		 panel_list = new JPanel();
@@ -306,9 +312,9 @@ public class admin_view extends JFrame {
 		
 		//Table Card
 				String[]header1={"STT", "Tên danh sách","Other","Other"};
-		        dtm1=new DefaultTableModel(header1, 0){
+		        dtm_list=new DefaultTableModel(header1, 0){
 		       };
-		        panel_list.add(new JScrollPane(table1=new JTable(dtm1)));
+		        panel_list.add(new JScrollPane(table1=new JTable(dtm_list)));
 		        table1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(118, 203, 33)));
 		        table1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		        table1.setBackground(new Color(255, 255, 255));
@@ -325,12 +331,12 @@ public class admin_view extends JFrame {
 		btnNewButton_5.setBounds(427, 260, 130, 43);
 		panel_list.add(btnNewButton_5);
 		
-		JButton btnNewButton_5_1 = new JButton("New button");
-		btnNewButton_5_1.setBounds(275, 260, 130, 43);
-		panel_list.add(btnNewButton_5_1);
+		JButton btn_delete_list = new JButton("Delete List");
+		btn_delete_list.setBounds(275, 260, 130, 43);
+		panel_list.add(btn_delete_list);
 		
-		JButton btnNewButton_5_2 = new JButton("New button");
-		btnNewButton_5_2.addMouseListener(new MouseAdapter() {
+		JButton btn_edit_list = new JButton("Edit List");
+		btn_edit_list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				panel_user.setVisible(false);
@@ -338,15 +344,18 @@ public class admin_view extends JFrame {
 				panel_card.setVisible(false);
 				panel_edit_user.setVisible(false);
 				panel_edit_list.setVisible(true);
-				panel_edit_card.setVisible(false);
+				panel_edit_card.setVisible(false);		
+				panel_adduser.setVisible(false);
+
 			}
 		});
-		btnNewButton_5_2.setBounds(123, 260, 130, 43);
-		panel_list.add(btnNewButton_5_2);
+		btn_edit_list.setBounds(123, 260, 130, 43);
+		panel_list.add(btn_edit_list);
 
 		
 		//
 		 panel_card = new JPanel();
+		 panel_card.setBackground(new Color(40, 46, 62));
 		panel_card.setBounds(342, 110, 598, 303);
 		Interface.add(panel_card);
 		panel_card.setLayout(null);
@@ -355,9 +364,9 @@ public class admin_view extends JFrame {
 		
 		//Table Card
 		String[]header2={"STT", "Tên danh sách","Other","Other"};
-        dtm2=new DefaultTableModel(header2, 0){
+        dtm_card=new DefaultTableModel(header2, 0){
        };
-        panel_card.add(new JScrollPane(table2=new JTable(dtm2)));
+        panel_card.add(new JScrollPane(table2=new JTable(dtm_card)));
         table2.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(118, 203, 33)));
         table2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
         table2.setBackground(new Color(255, 255, 255));
@@ -370,20 +379,16 @@ public class admin_view extends JFrame {
 		//	chèn dữ liệu vào
        LoadDBDataCard();
 		
-		JButton btnNewButton_6 = new JButton("New button");
-		btnNewButton_6.setBounds(427, 260, 130, 43);
-		panel_card.add(btnNewButton_6);
+		JButton btn_detele_card = new JButton("Delete Card");
+		btn_detele_card.setBounds(275, 260, 130, 43);
+		panel_card.add(btn_detele_card);
 		
-		JButton btnNewButton_6_1 = new JButton("New button");
-		btnNewButton_6_1.setBounds(275, 260, 130, 43);
-		panel_card.add(btnNewButton_6_1);
-		
-		JButton btnNewButton_6_2 = new JButton("New button");
-		btnNewButton_6_2.setBounds(123, 260, 130, 43);
-		panel_card.add(btnNewButton_6_2);
+		JButton btn_edit_card = new JButton("Edit Card");
+		btn_edit_card.setBounds(123, 260, 130, 43);
+		panel_card.add(btn_edit_card);
 		
 		//
-		 panel_edit_user = new JPanel();
+		panel_edit_user = new JPanel();
 		panel_edit_user.setBounds(342, 110, 598, 303);
 		Interface.add(panel_edit_user);
 		panel_edit_user.setLayout(null);
@@ -403,19 +408,31 @@ public class admin_view extends JFrame {
 		lblPassword_1.setBounds(63, 140, 200, 45);
 		panel_edit_user.add(lblPassword_1);
 		
-		textField_2 = new FTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(274, 74, 281, 45);
-		panel_edit_user.add(textField_2);
+		txt_edit_iduser = new FTextField();
+		txt_edit_iduser.setColumns(10);
+		txt_edit_iduser.setBounds(274, 74, 281, 45);
+		panel_edit_user.add(txt_edit_iduser);
 		
-		textField_3 = new FTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(274, 142, 281, 45);
-		panel_edit_user.add(textField_3);
+		txt_edit_passuser = new FTextField();
+		txt_edit_passuser.setColumns(10);
+		txt_edit_passuser.setBounds(274, 142, 281, 45);
+		panel_edit_user.add(txt_edit_passuser);
 		
-		JButton btnNewButton_3_1 = new JButton("New button");
-		btnNewButton_3_1.setBounds(423, 198, 137, 45);
-		panel_edit_user.add(btnNewButton_3_1);
+		JButton btn_editUser = new JButton("New button");
+		btn_editUser.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel_user.setVisible(false);
+				panel_list.setVisible(false);
+				panel_card.setVisible(false);
+				panel_edit_user.setVisible(false);
+				panel_edit_list.setVisible(false);
+				panel_edit_card.setVisible(true);		
+				panel_adduser.setVisible(false);
+			}
+		});
+		btn_editUser.setBounds(423, 198, 137, 45);
+		panel_edit_user.add(btn_editUser);
 		
 		//
 		 panel_edit_list = new JPanel();
@@ -493,6 +510,8 @@ public class admin_view extends JFrame {
 				panel_edit_user.setVisible(false);
 				panel_edit_list.setVisible(false);
 				panel_edit_card.setVisible(true);
+				panel_adduser.setVisible(true);
+
 			}
 		});
 		btnNewButton_3_1_2.setBounds(423, 198, 137, 45);
@@ -522,7 +541,7 @@ public class admin_view extends JFrame {
 			String cardcol = rs.getString("cardcol");
 			String usercol = rs.getString("usercol"); //ten cot hoặc thứ tự cột
 			Object []row={STT++,listname, cardcol, usercol};
-//           dtm_list.addRow(row);
+           dtm_list.addRow(row);
        }
        conn.close();
    }
@@ -539,7 +558,7 @@ public class admin_view extends JFrame {
 					String name = rs.getString("Name");
 					String des = rs.getString("Dinh_Nghia"); //ten cot hoặc thứ tự cột
 				    Object []row={STT++,cardcol,name,des};
-				    dtm2.addRow(row);
+				    dtm_card.addRow(row);
 				}
 				conn.close();
 			} catch (Exception e2) {
@@ -562,7 +581,7 @@ public class admin_view extends JFrame {
 				String id = rs.getString("idUser");
 				String pass = rs.getString("pass"); //ten cot hoặc thứ tự cột
 			    Object []row={STT++,usercol,id,pass};
-//			    dtm_user.addRow(row);
+			    dtm_user.addRow(row);
 			}
 			conn.close();
 		} catch (Exception e2) {
