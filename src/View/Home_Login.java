@@ -62,8 +62,6 @@ public class Home_Login extends JFrame {
 	private User_DAO userDAO;
 	
 	private Login login;
-
-	
 	private JPanel contentPane;
 	private FTextField textField;
 	private JLabel lbl_Edit;
@@ -76,12 +74,10 @@ public class Home_Login extends JFrame {
 	protected JComponent panel_Create;
 	private JTable table;
 	private JTable table1;
-//	private DefaultTableModel dtm_edit_list;
-//	private DefaultTableModel dtm_delete_list;
-//	private DefaultTableModel dtm_edit_card;
-//	private DefaultTableModel dtm_delete_card;
+	private JTable table_update_list;
 	private DefaultTableModel dtm_list;
 	private DefaultTableModel dtm_card;
+	private DefaultTableModel dtm_update_card;
 
 	private JComponent panel_Edit_List;
 	private JComponent panel_Edit_Card;
@@ -101,10 +97,10 @@ public class Home_Login extends JFrame {
 	public FButton btn_edit;
 	public FButton btn_delete_list;
 	private FTextField txt_list_card;
-	private DefaultTableModel dtm1;
 	private String namelist;
 	private JLabel Background_Main;
 	private JPanel panel_home;
+	private JTable table_update_card;
 	 static String iduser;
 
 	/**
@@ -228,6 +224,7 @@ public class Home_Login extends JFrame {
 				if(iduser.equals("admin")) {
 					System.out.println(iduser);
 					try {
+						dispose();
 						new admin_view(iduser);
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -307,10 +304,6 @@ public class Home_Login extends JFrame {
 		Topic.setBounds(461, 0, 167, 60);
 		Nav_Bar.add(Topic);
 		
-		
-		
-		
-		
 		JLabel lbl_create = new JLabel("Create List Card");
 		lbl_create.setForeground(new Color(255, 255, 255));
 		lbl_create.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
@@ -363,6 +356,12 @@ public class Home_Login extends JFrame {
 		textField.setColumns(10);
 		
 		JLabel icon_search = new JLabel("");
+		icon_search.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textField.setText("");
+			}
+		});
 		icon_search.setHorizontalAlignment(SwingConstants.CENTER);
 		icon_search.setIcon(new ImageIcon(Home_Login.class.getResource("/IMG/icons8-search-26.png")));
 		icon_search.setBounds(199, 11, 43, 38);
@@ -475,14 +474,14 @@ public class Home_Login extends JFrame {
 		String[]header={"STT", "Tên danh sách","Other","Other"};
 		dtm_list = new DefaultTableModel(header, 0);
 		System.out.println("dtm_list_edit: "+dtm_list);
-        panel_Edit_List.add(new JScrollPane(table=new JTable(dtm_list)));
-        table.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(118, 203, 33)));
-        table.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-        table.setBackground(new Color(255, 255, 255));
-        table.setForeground(new Color(118, 203, 33));
-        table.setRowHeight(30);
-        table.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 15));
-        JScrollPane scrollPane = new JScrollPane(table);
+        panel_Edit_List.add(new JScrollPane(table_update_list=new JTable(dtm_list)));
+        table_update_list.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(118, 203, 33)));
+        table_update_list.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+        table_update_list.setBackground(new Color(255, 255, 255));
+        table_update_list.setForeground(new Color(118, 203, 33));
+        table_update_list.setRowHeight(30);
+        table_update_list.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 15));
+        JScrollPane scrollPane = new JScrollPane(table_update_list);
 		scrollPane.setBounds(137, 110, 721, 209);
 		panel_Edit_List.add(scrollPane);
 		//	chèn dữ liệu vào
@@ -515,16 +514,16 @@ public class Home_Login extends JFrame {
 		//Table card
 				String[]header3={"STT", "Tên danh sách","Other", "Other"};
 
-				dtm_card=new DefaultTableModel(header3,0);
-				System.out.println("dtm_card_edit: "+dtm_card);
-		       	panel_Edit_Card.add(new JScrollPane(table1 = new JTable(dtm_card)));
-		        table1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(118, 203, 33)));
-		        table1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
-		        table1.setBackground(new Color(255, 255, 255));
-		        table1.setForeground(new Color(118, 203, 33));
-		        table1.setRowHeight(30);
-		        table1.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 15));
-		        JScrollPane scrollPane2 = new JScrollPane(table1);
+				dtm_update_card=new DefaultTableModel(header3,0);
+				System.out.println("dtm_card_edit: "+dtm_update_card);
+		       	panel_Edit_Card.add(new JScrollPane(table_update_card = new JTable(dtm_update_card)));
+		       	table_update_card.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(118, 203, 33)));
+		       	table_update_card.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		       	table_update_card.setBackground(new Color(255, 255, 255));
+		       	table_update_card.setForeground(new Color(118, 203, 33));
+		       	table_update_card.setRowHeight(30);
+		       	table_update_card.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 15));
+		        JScrollPane scrollPane2 = new JScrollPane(table_update_card);
 				scrollPane2.setBounds(137, 110, 721, 209);
 				panel_Edit_Card.add(scrollPane2);
 
@@ -622,7 +621,7 @@ public class Home_Login extends JFrame {
 		btn_select_delete.setBackground(new Color(175, 215, 130));
 //		btn_select_delete.addActionListener(ac);
 		btn_select_delete.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_select_delete.setBounds(646, 330, 112, 41);
+		btn_select_delete.setBounds(615, 330, 112, 41);
 		panel_Delete_List.add(btn_select_delete);
 		
 		btn_delete_list = new FButton();
@@ -630,7 +629,7 @@ public class Home_Login extends JFrame {
 		btn_delete_list.setBackground(new Color(175, 215, 130));
 		btn_delete_list.addActionListener(ac);
 		btn_delete_list.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btn_delete_list.setBounds(846, 330, 112, 41);
+		btn_delete_list.setBounds(750, 330, 112, 41);
 		panel_Delete_List.add(btn_delete_list);
 		
 		panel_Delete_Card = new JPanel();
@@ -720,10 +719,22 @@ public class Home_Login extends JFrame {
 				Background_Main.setVisible(false);
 			}
 		});
-	
 		// EditButton
 		btn_edit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				DefaultTableModel model_table = (DefaultTableModel) table_update_card.getModel();
+				int i_row = table_update_card.getSelectedRow();
+				System.out.println("irow: " + i_row);
+				System.out.println("model_edit: "+ model_table.getValueAt(i_row,1));
+				String nameList = model_table.getValueAt(i_row,1) +"";
+				String tes = model_table.getValueAt(i_row,2) +"";
+				String des = model_table.getValueAt(i_row,3) +"";
+				
+				textField_nameedit.setText(tes);
+				textField_desedit.setText(des);
+				txt_list_card.setText(nameList);				
+				
+				
 				panel_tools.setVisible(false);
 				panel_Create.setVisible(false);
 				panel_Create_List.setVisible(false);
@@ -741,8 +752,8 @@ public class Home_Login extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-					DefaultTableModel model_table = (DefaultTableModel) table.getModel();
-					int i_row = table.getSelectedRow();
+					DefaultTableModel model_table = (DefaultTableModel) table_update_list.getModel();
+					int i_row = table_update_list.getSelectedRow();
 					System.out.println("irow: " + i_row);
 					System.out.println("model_edit: "+ model_table.getValueAt(i_row,1));
 					String tableedit = model_table.getValueAt(i_row,1) +"";
@@ -827,7 +838,7 @@ public class Home_Login extends JFrame {
 	
 	public void LoadDBData2JTable() throws Exception{
 		Connection conn=getConnection();
-        String sql="select *from list_card Where usercol='"+iduser+"';";
+        String sql="select * from list_card Where usercol='"+iduser+"';";
         ResultSet rs=conn.createStatement().executeQuery(sql);
     	int STT=1;
         while(rs.next()){
@@ -844,19 +855,22 @@ public class Home_Login extends JFrame {
 			try {
 				Connection conn=getConnection();
 				System.out.println(listname);
-				String sql="select *from card where cardcol='"+listname+"';";
+				String sql="select * from card where cardcol='"+listname+"';";
 				System.err.println(sql);
 				ResultSet rs=conn.createStatement().executeQuery(sql);
-				System.out.println("ngoài while: " +rs.next());
+//				System.out.println("ngoài while: " +rs.next());
 				int STT=1;
+				dtm_card.setRowCount(0);
+			    dtm_update_card.setRowCount(0);
 				while(rs.next()){
-					System.out.println("trong while: " +rs.next());
+//					System.out.println("trong while: " +rs.next());
 					String cardcol = rs.getString("cardcol");
 					String name = rs.getString("Name");
 					String des = rs.getString("Dinh_Nghia"); //ten cot hoặc thứ tự cột\
 					System.out.println(cardcol);
 				    Object []row={STT++,cardcol,name,des};
 				    dtm_card.addRow(row);
+				    dtm_update_card.addRow(row);
 				}
 				conn.close();
 			} catch (Exception e2) {
@@ -923,31 +937,41 @@ public class Home_Login extends JFrame {
 
 		 }
 	}
-	 public void DeleteCard() {
-		 DefaultTableModel model_table = (DefaultTableModel) table1.getModel();
-			int i_row = table1.getSelectedRow();
-			String namelist = model_table.getValueAt(i_row, 1) +"";
-			String tes = model_table.getValueAt(i_row, 2) +"";
-			String des = model_table.getValueAt(i_row, 3) +"";
-		Card cardnote = new Card(namelist,tes,des);
-		 this.cardDAO.getInstance().Delete(cardnote);
-			JOptionPane.showMessageDialog(null, "Đã xóa !", "Đây là cửa số thông báo", 
-	                JOptionPane.PLAIN_MESSAGE);
-	 }
+
+	public void DeleteCard() {
+		DefaultTableModel model_table = (DefaultTableModel) table1.getModel();
+		int i_row = table1.getSelectedRow();
+		String namelist = model_table.getValueAt(i_row, 1) + "";
+		String tes = model_table.getValueAt(i_row, 2) + "";
+		String des = model_table.getValueAt(i_row, 3) + "";
+		Card cardnote = new Card(namelist, tes, des);
+		this.cardDAO.getInstance().Delete(cardnote);
+		try {
+			JOptionPane.showMessageDialog(new Home_Login(iduser), "Đã xóa !", "Đây là cửa số thông báo",
+					JOptionPane.PLAIN_MESSAGE);
+		} catch (HeadlessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	 
 	 public void UpdateCard() {
-		 DefaultTableModel model_table = (DefaultTableModel) table1.getModel();
-			int i_row = table1.getSelectedRow();
-			String namelist = model_table.getValueAt(i_row, 1) +"";
-			String tes = model_table.getValueAt(i_row, 2) +"";
-			String des = model_table.getValueAt(i_row, 3) +"";
-			
-			textField_nameedit.setText(tes);
-			textField_desedit.setText(des);
-		Card cardnote = new Card(namelist,tes,textField_desedit.getText());
+
+		Card cardnote = new Card(txt_list_card.getText(),textField_nameedit.getText(),textField_desedit.getText());
 		 this.cardDAO.getInstance().Update(cardnote);
-			JOptionPane.showMessageDialog(null, "Đã cập nhật !", "Đây là cửa số thông báo", 
-	                JOptionPane.PLAIN_MESSAGE);
+			try {
+				JOptionPane.showMessageDialog(new Home_Login(iduser), "Đã cập nhật !", "Đây là cửa số thông báo", 
+				        JOptionPane.PLAIN_MESSAGE);
+			} catch (HeadlessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	 }
 	 public void DeleteList() {
 		 DefaultTableModel model_table = (DefaultTableModel) table.getModel();
@@ -956,9 +980,18 @@ public class Home_Login extends JFrame {
 			String cardcol = model_table.getValueAt(i_row, 2) +"";
 			String usercol = model_table.getValueAt(i_row, 3) +"";
 		List_Card listnote = new List_Card(cardcol,usercol,namelist);
+		System.out.println(cardcol+" "+usercol+" "+namelist);
 		 this.listDAO.getInstance().Delete(listnote);
-			JOptionPane.showMessageDialog(null, "Đã xóa !", "Đây là cửa số thông báo", 
-	                JOptionPane.PLAIN_MESSAGE);
+			try {
+				JOptionPane.showMessageDialog(new Home_Login(iduser), "Đã xóa !", "Đây là cửa số thông báo", 
+				        JOptionPane.PLAIN_MESSAGE);
+			} catch (HeadlessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	 }
 	 
 	 

@@ -2,8 +2,6 @@ package View;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.*;
 import java.awt.*;
@@ -20,13 +18,14 @@ public class Rules extends JFrame implements ActionListener {
         this.name = name;
 
         JLabel heading = new JLabel("Welcome"+ name +"to QUIZ TEST");
-        heading.setBounds(150,100,700,30);
+        heading.setHorizontalAlignment(SwingConstants.CENTER);
+        heading.setBounds(143,86,700,30);
         heading.setFont( new Font("Viner Hand ITC", Font.BOLD, 28));
         heading.setForeground(new Color(22,99,54));
-        add(heading);
+        getContentPane().add(heading);
 
         JLabel rules = new JLabel();
-        rules.setBounds(70,150,700,350);
+        rules.setBounds(237,127,624,271);
         rules.setFont( new Font("Tahoma", Font.PLAIN, 16));
         rules.setForeground(new Color(22,99,54));
         rules.setText(
@@ -39,31 +38,35 @@ public class Rules extends JFrame implements ActionListener {
                         "6. No one else can be in the room with you." + "<br><br>" +
                         "<html>"
         );
-        add(rules);
+        getContentPane().add(rules);
 
         back = new JButton("Back");
-        back.setBounds(300,500,100,30);
+        back.setBounds(260,409,100,30);
         back.setBackground(new Color(22,99,54));
         back.setForeground(Color.WHITE);
         back.addActionListener(this);
-        add(back);
+        getContentPane().add(back);
 
         start = new JButton("Start");
-        start.setBounds(450,500,100,30);
+        start.setBounds(431,409,100,30);
         start.setBackground(new Color(22,99,54));
         start.setForeground(Color.WHITE);
         start.addActionListener(this);
-        add(start);
-        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("img/back.png"));
-        Image i = i1.getImage().getScaledInstance(800,650,Image.SCALE_DEFAULT);
+        getContentPane().add(start);
+        
+        JLabel image=new JLabel("");
+        image.setSize(1020, 510);
+        image.setVerticalAlignment(SwingConstants.CENTER);
+        image.setHorizontalAlignment(SwingConstants.CENTER);
+        ImageIcon i1 = new ImageIcon(Rules.class.getResource("/IMG/Frogsss.jpg"));
+        Image i = i1.getImage().getScaledInstance(1020,520,Image.SCALE_DEFAULT);
         ImageIcon i2 = new ImageIcon(i);
-        JLabel image = new JLabel(i2);
-        image.setBounds(0,0,800,650);
-        add(image);
+        image.setIcon(i2);
+        getContentPane().add(image);
 
-        setSize(800,650);
-        setLocation(350,100);
-        setLayout(null);
+
+    	setBounds(100, 100, 1020, 510);
+        getContentPane().setLayout(null);
         setUndecorated(true);
         setVisible(true);
     }
