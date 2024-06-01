@@ -62,6 +62,8 @@ public class admin_view extends JFrame {
 	private FTextField txt_edit_list_namecard;
 	private FTextField txt_edit_namecard;
 	private FTextField txt_edit_des;
+	private String txt_temp;
+
 
 	private DefaultTableModel dtm_user;
 	private JTable table;
@@ -80,7 +82,7 @@ public class admin_view extends JFrame {
 
 	public FButton btn_addUsser;
 	public FButton btn_editUser;
-	public FButton btn_edit_list;
+	public FButton btn_editList;
 	public FButton btn_editCard;
 	public FButton btn_detele_user;
 	public FButton btn_delete_list;
@@ -166,6 +168,7 @@ public class admin_view extends JFrame {
 						"Xác nhận", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (result == JOptionPane.YES_OPTION) {
 					try {
+						dispose();
 						new Home_Login(iduser);
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -267,7 +270,7 @@ public class admin_view extends JFrame {
 		panel_adduser.setBounds(342, 110, 598, 303);
 		Interface.add(panel_adduser);
 		panel_adduser.setLayout(null);
-		panel_adduser.setVisible(true);
+		panel_adduser.setVisible(false);
 
 		JLabel lblNewLabel = new JLabel("ID User: ");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -390,8 +393,7 @@ public class admin_view extends JFrame {
 		btn_delete_list.setBounds(275, 260, 130, 43);
 		panel_list.add(btn_delete_list);
 
-		btn_edit_list = new FButton();
-		btn_edit_list.addActionListener(ac);
+		FButton btn_edit_list = new FButton();
 		btn_edit_list.setText("Edit List");
 		btn_edit_list.addMouseListener(new MouseAdapter() {
 			@Override
@@ -401,10 +403,11 @@ public class admin_view extends JFrame {
 				String listname = model_table.getValueAt(i_row, 1) + "";
 				String cardcol = model_table.getValueAt(i_row, 2) + "";
 				String usercol = model_table.getValueAt(i_row, 3) + "";
-
+				
 				txt_edit_list_iduser.setText(usercol);
 				txt_edit_list_namecard.setText(listname);
-
+				txt_temp=cardcol;
+				
 				panel_user.setVisible(false);
 				panel_list.setVisible(false);
 				panel_card.setVisible(false);
@@ -547,8 +550,9 @@ public class admin_view extends JFrame {
 		txt_edit_list_namecard.setBounds(274, 142, 281, 45);
 		panel_edit_list.add(txt_edit_list_namecard);
 
-		FButton btn_editList = new FButton();
-		btn_editList.setText("Edit List");
+		btn_editList = new FButton();
+		btn_editList.addActionListener(ac);
+		btn_editList.setText("Edit List Name");
 		btn_editList.setBounds(423, 198, 137, 45);
 		panel_edit_list.add(btn_editList);
 
@@ -610,9 +614,9 @@ public class admin_view extends JFrame {
 			JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!!");
 		} else {
 			User usernote = new User(txt_id.getText(), txt_id.getText(), txt_pass.getText());
-			this.userDAO.getInstance().Dang_Ki(usernote);
-			dispose();
+			this.userDAO.getInstance().Insert(usernote);
 			try {
+				dispose();
 				JOptionPane.showMessageDialog(new admin_view(iduser), "Thêm " + txt_id.getText() + " thành công!!!");
 			} catch (HeadlessException e) {
 				// TODO Auto-generated catch block
@@ -690,6 +694,7 @@ public class admin_view extends JFrame {
 		User user = new User(txt_edit_iduser.getText(), txt_edit_iduser.getText(), txt_edit_passuser.getText());
 		this.userDAO.getInstance().Update(user);
 		try {
+			dispose();
 			JOptionPane.showMessageDialog(new admin_view(iduser), "Đã cập nhật !", "Đây là cửa số thông báo",
 					JOptionPane.PLAIN_MESSAGE);
 		} catch (HeadlessException e) {
@@ -702,10 +707,11 @@ public class admin_view extends JFrame {
 	}
 
 	public void UpdateList() {
-		List_Card list = new List_Card(txt_edit_list_namecard.getText(), txt_edit_list_iduser.getText(),
-				txt_edit_list_namecard.getText());
+		List_Card list = new List_Card(txt_temp, txt_edit_list_iduser.getText()
+				,txt_edit_list_namecard.getText());
 		this.listDAO.getInstance().Update(list);
 		try {
+			dispose();
 			JOptionPane.showMessageDialog(new admin_view(iduser), "Đã cập nhật !", "Đây là cửa số thông báo",
 					JOptionPane.PLAIN_MESSAGE);
 		} catch (HeadlessException e) {
@@ -721,6 +727,7 @@ public class admin_view extends JFrame {
 		Card cardnote = new Card(txt_edit_list_namecard.getText(), txt_edit_namecard.getText(), txt_edit_des.getText());
 		this.cardDAO.getInstance().Update(cardnote);
 		try {
+			dispose();
 			JOptionPane.showMessageDialog(new admin_view(iduser), "Đã cập nhật !", "Đây là cửa số thông báo",
 					JOptionPane.PLAIN_MESSAGE);
 		} catch (HeadlessException e) {
@@ -741,7 +748,8 @@ public class admin_view extends JFrame {
 		Card cardnote = new Card(namelist, tes, des);
 		this.cardDAO.getInstance().Delete(cardnote);
 		try {
-			JOptionPane.showMessageDialog(new Home_Login(iduser), "Đã xóa card: " + tes, "Đây là cửa số thông báo",
+			dispose();
+			JOptionPane.showMessageDialog(new admin_view(iduser), "Đã xóa card: " + tes, "Đây là cửa số thông báo",
 					JOptionPane.PLAIN_MESSAGE);
 		} catch (HeadlessException e) {
 			// TODO Auto-generated catch block
@@ -762,7 +770,8 @@ public class admin_view extends JFrame {
 		System.out.println(cardcol + " " + usercol + " " + namelist);
 		this.listDAO.getInstance().Delete(listnote);
 		try {
-			JOptionPane.showMessageDialog(new Home_Login(iduser), "Đã xóa danh sách: " + namelist,
+			dispose();
+			JOptionPane.showMessageDialog(new admin_view(iduser), "Đã xóa danh sách: " + namelist,
 					"Đây là cửa số thông báo", JOptionPane.PLAIN_MESSAGE);
 		} catch (HeadlessException e) {
 			// TODO Auto-generated catch block
@@ -782,7 +791,8 @@ public class admin_view extends JFrame {
 		User user = new User(usercol, iduser, passuser);
 		this.userDAO.getInstance().Delete(user);
 		try {
-			JOptionPane.showMessageDialog(new admin_view(iduser), "Đã xóa user: "+iduser, "Đây là cửa số thông báo",
+			dispose();
+			JOptionPane.showMessageDialog(new admin_view(iduser), "Đã xóa user: " + iduser, "Đây là cửa số thông báo",
 					JOptionPane.PLAIN_MESSAGE);
 		} catch (HeadlessException e) {
 			// TODO Auto-generated catch block

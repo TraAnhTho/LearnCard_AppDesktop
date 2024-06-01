@@ -23,6 +23,13 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
@@ -51,9 +58,12 @@ public class Home extends JFrame {
 	 * Create the frame.
 	 */
 	public Home() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Home.class.getResource("/IMG/eye.gif")));
+		setTitle("Home");
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1020, 510);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -293,4 +303,7 @@ public class Home extends JFrame {
 		Interface.add(Background_Main);
 
 	}
+	
+	
+	
 }

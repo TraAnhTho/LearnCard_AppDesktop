@@ -28,15 +28,15 @@ public class Admin_Listener implements ActionListener {
 			this.adview.InsertsUser();
 		} else if (src.equals(adview.btn_editUser.getText())) {
 			this.adview.UpdateUser();
-		} else if (src.equals(adview.btn_edit_list.getText())) {
+		} else if (src.equals(adview.btn_editList.getText())) {
 			this.adview.UpdateList();
 		} else if (src.equals(adview.btn_editCard.getText())) {
 			this.adview.UpdateCard();
-		}else if(src.equals(adview.btn_detele_user.getText())){
+		} else if (src.equals(adview.btn_detele_user.getText())) {
 			this.adview.DeleteUser();
-		}else if(src.equals(adview.btn_delete_list.getText())){
+		} else if (src.equals(adview.btn_delete_list.getText())) {
 			this.adview.DeleteList();
-		}else if(src.equals(adview.btn_detele_card.getText())){
+		} else if (src.equals(adview.btn_detele_card.getText())) {
 			this.adview.DeleteCard();
 		}
 	}

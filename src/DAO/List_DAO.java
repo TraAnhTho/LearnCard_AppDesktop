@@ -66,8 +66,9 @@ public class List_DAO implements DAOinterface<List_Card> {
 			Statement st = c.createStatement();
 
 			// Bước 3: Thực thi một câu lệnh SQL
-			String sql = "UPDATE flash_card.`List_Card` SET " + "`List_Name`='" + t.getName_List() + "`cardcol`='"
-					+ t.getCardcol() + "'WHERE `usercol`='" + t.getUsercol() + "';";
+			String sql = "UPDATE flash_card.`List_Card` SET `List_Name`='" + t.getName_List() + "' `cardcol`='"
+					+ t.getName_List() + "' WHERE `usercol`='" + t.getUsercol() + "' AND `cardcol` = '"
+							+ t.getCardcol() + "';";
 			check = st.executeUpdate(sql);
 
 			// Bước 4: In câu lệnh
@@ -98,8 +99,8 @@ public class List_DAO implements DAOinterface<List_Card> {
 			Statement st = c.createStatement();
 
 			// Bước 3: Thực thi một câu lệnh SQL
-			String sql = "DELETE FROM flash_card.`card`" + "WHERE `cardcol`='" + t.getName_List() + "';";
-			String sql1 = "DELETE FROM flash_card.`List_Card`" + "WHERE `cardcol`='" + t.getName_List() + "';";
+			String sql = "DELETE FROM flash_card.`card`" + " WHERE `cardcol`='" + t.getName_List() + "';";
+			String sql1 = "DELETE FROM flash_card.`List_Card`" + " WHERE `cardcol`='" + t.getName_List() + "';";
 			check = st.executeUpdate(sql);
 			check1 = st.executeUpdate(sql1);
 

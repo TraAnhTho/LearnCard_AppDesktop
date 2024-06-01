@@ -1,9 +1,5 @@
 package View;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import DAO.Card_DAO;
@@ -78,8 +74,9 @@ public class Quiz extends JFrame implements ActionListener {
 		getContentPane().add(qno);
 
 		question = new JLabel();
+		question.setForeground(new Color(175, 215, 130));
 		question.setBounds(145, 213, 786, 50);
-		question.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		question.setFont(new Font("Tahoma", Font.BOLD, 20));
 		getContentPane().add(question);
 
 		System.out.println("123");
@@ -87,8 +84,20 @@ public class Quiz extends JFrame implements ActionListener {
 		System.out.println("123");
 
 		System.out.println(randomSelection.size());
-		if (randomSelection == null || randomSelection.isEmpty()) {
+		if (randomSelection == null || randomSelection.isEmpty()||randomSelection.size()<10) {
 			System.out.println("Data not loaded");
+			try {
+				dispose();
+				JOptionPane.showMessageDialog(new Home_Login(name), "Thiếu dữ liệu. Hãy bắt đầu thêm bộ card. Có ít nhất 10 thẻ card để thực hiện bài test. ", "Đây là cửa số thông báo",
+						JOptionPane.ERROR_MESSAGE);
+			} catch (HeadlessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			return;
 		}
 
@@ -120,17 +129,17 @@ public class Quiz extends JFrame implements ActionListener {
 		value = randomSelection.get(4);
 		questions[3][0] = value.getQuestion();
 		questions[3][1] = value.getAnswer();
-		questions[3][2] = random_dapan.get(10);
-		questions[3][3] = random_dapan.get(11);
-		questions[3][4] = random_dapan.get(12);
+		questions[3][2] = random_dapan.get(0);
+		questions[3][3] = random_dapan.get(1);
+		questions[3][4] = random_dapan.get(2);
 		answers[3][1] = value.getAnswer();
 
 		value = randomSelection.get(5);
 		questions[4][0] = value.getQuestion();
-		questions[4][1] = random_dapan.get(13);
+		questions[4][1] = random_dapan.get(3);
 		questions[4][2] = value.getAnswer();
-		questions[4][3] = random_dapan.get(14);
-		questions[4][4] = random_dapan.get(15);
+		questions[4][3] = random_dapan.get(4);
+		questions[4][4] = random_dapan.get(5);
 		answers[4][1] = value.getAnswer();
 
 		value = randomSelection.get(6);
@@ -146,13 +155,13 @@ public class Quiz extends JFrame implements ActionListener {
 		questions[6][1] = random_dapan.get(7);
 		questions[6][2] = random_dapan.get(9);
 		questions[6][3] = value.getAnswer();
-		questions[6][4] = random_dapan.get(11);
+		questions[6][4] = random_dapan.get(1);
 		answers[6][1] = value.getAnswer();
 
 		value = randomSelection.get(7);
 		questions[7][0] = value.getQuestion();
-		questions[7][1] = random_dapan.get(13);
-		questions[7][2] = random_dapan.get(15);
+		questions[7][1] = random_dapan.get(3);
+		questions[7][2] = random_dapan.get(5);
 		questions[7][3] = value.getAnswer();
 		questions[7][4] = random_dapan.get(2);
 		answers[7][1] = value.getAnswer();
@@ -167,9 +176,9 @@ public class Quiz extends JFrame implements ActionListener {
 
 		value = randomSelection.get(9);
 		questions[9][0] = value.getQuestion();
-		questions[9][1] = random_dapan.get(10);
-		questions[9][2] = random_dapan.get(12);
-		questions[9][3] = random_dapan.get(14);
+		questions[9][1] = random_dapan.get(0);
+		questions[9][2] = random_dapan.get(2);
+		questions[9][3] = random_dapan.get(4);
 		questions[9][4] = value.getAnswer();
 		answers[9][1] = value.getAnswer();
 
@@ -375,7 +384,6 @@ public class Quiz extends JFrame implements ActionListener {
 		try {
 			new Quiz(name);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -392,7 +400,8 @@ public class Quiz extends JFrame implements ActionListener {
 
 		try (Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
 				Statement statement = connection.createStatement();
-				ResultSet rs = statement.executeQuery("SELECT * FROM  flash_card.`Card`")) {
+				ResultSet rs = statement
+						.executeQuery("SELECT * FROM  flash_card.`Card` Where usercol='" + name + "';")) {
 
 			// Lấy danh sách từ kết quả truy vấn
 			while (rs.next()) {
@@ -407,8 +416,8 @@ public class Quiz extends JFrame implements ActionListener {
 		Collections.shuffle(list_dapan);
 
 		// Chọn 10 giá trị đầu tiên từ danh sách đã được trộn
-		randomSelection = list.subList(0, Math.min(10, list.size()));
-		random_dapan = list_dapan.subList(0, Math.min(16, list_dapan.size()));
+		randomSelection = list.subList(0, Math.min(list.size(), list.size()));
+		random_dapan = list_dapan.subList(0, Math.min(list_dapan.size(), list_dapan.size()));
 		System.out.println(randomSelection);
 		System.out.println(random_dapan);
 

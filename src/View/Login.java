@@ -1,4 +1,5 @@
 package View;
+
 import Model.Card;
 import Model.List_Card;
 import Model.User;
@@ -6,7 +7,6 @@ import design.FButton;
 import design.FPasswordField;
 import design.FTextField;
 import JDBC_KetNoi.JDBC_KetNoi;
-
 
 import java.awt.Color;
 import java.awt.Component;
@@ -50,21 +50,19 @@ public class Login extends JFrame {
 	private Card_DAO cardDAO;
 	private List_DAO listDAO;
 	private User_DAO userDAO;
-	
-	
+
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private FTextField textField;
 	private FTextField textField_user;
 	private FPasswordField textField_pass;
-	
+
 	public FButton btn_dangnhap;
 	public FButton btn_dangki;
-	
-
 
 	/**
 	 * Launch the application.
+	 * 
 	 * @author TraAnhTho
 	 */
 	public static void main(String[] args) {
@@ -87,39 +85,36 @@ public class Login extends JFrame {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1020, 510);
-		
-		//gọi
-		//thís là cái view mình đang làm việc
-		ActionListener ac =new User_Listener(this);
-		
-		
+
+		// gọi
+		// thís là cái view mình đang làm việc
+		ActionListener ac = new User_Listener(this);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JPanel Interface = new JPanel();
 		Interface.setBackground(new Color(40, 46, 62));
 		Interface.setBounds(0, 0, 1006, 473);
 		contentPane.add(Interface);
 		Interface.setLayout(null);
-		
-		
-		
+
 		JPanel Nav_Bar = new JPanel();
 		Nav_Bar.setBackground(new Color(26, 29, 40));
 		Nav_Bar.setBounds(0, 0, 1006, 60);
 		Interface.add(Nav_Bar);
 		Nav_Bar.setLayout(null);
-		
+
 		JLabel LOGO = new JLabel("LEARNCARD");
 		LOGO.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 17));
 		LOGO.setHorizontalAlignment(SwingConstants.CENTER);
 		LOGO.setForeground(new Color(255, 255, 255));
 		LOGO.setBounds(1, 0, 153, 60);
 		Nav_Bar.add(LOGO);
-		
+
 		JLabel Home = new JLabel("HOME");
 		Home.addMouseListener(new MouseAdapter() {
 			@Override
@@ -132,71 +127,59 @@ public class Login extends JFrame {
 		Home.setForeground(new Color(255, 255, 255));
 		Home.setBounds(164, 0, 139, 60);
 		Nav_Bar.add(Home);
-		
+
 		JLabel lblNewLabel = new JLabel("ID User: ");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblNewLabel.setBounds(199, 167, 150, 52);
 		Interface.add(lblNewLabel);
-		
+
 		JLabel lblPass = new JLabel("Password:");
 		lblPass.setForeground(new Color(255, 255, 255));
 		lblPass.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblPass.setBounds(199, 258, 150, 52);
 		Interface.add(lblPass);
-		
+
 		textField_user = new FTextField();
 		textField_user.setBounds(393, 167, 294, 52);
 		Interface.add(textField_user);
 		textField_user.setColumns(10);
-//		textField_user =new FTextField(this.user.getIdUser()+"");
-//		this.user.setIdUser(textField_user.getText());
-//		this.user.setUsercol(textField_user.getText());
 
-
-		
-		
 		textField_pass = new FPasswordField();
 		textField_pass.setBounds(393, 258, 294, 52);
 		Interface.add(textField_pass);
 		textField_pass.setColumns(10);
-//		textField_pass =new FTextField(this.user.getPassWord()+"");
-//		this.user.setPassWord(textField_pass.getText());
 
-		
 		btn_dangnhap = new FButton();
-		//("Đăng nhập");
 		btn_dangnhap.setText("Đăng Nhập");
 		btn_dangnhap.setFont(new Font("Verdana", Font.PLAIN, 20));
 		btn_dangnhap.setForeground(new Color(0, 0, 0));
 		btn_dangnhap.addActionListener(ac);
 		btn_dangnhap.setBounds(398, 349, 137, 55);
 		Interface.add(btn_dangnhap);
+		
 		btn_dangki = new FButton();
-		//("Đăng kí");
 		btn_dangki.setText("Đăng Kí");
 		btn_dangki.setForeground(new Color(255, 255, 255));
 		btn_dangki.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btn_dangki.addActionListener(ac);
 		btn_dangki.setBounds(550, 349, 137, 55);
 		Interface.add(btn_dangki);
-		
+
 		JButton btn_showpass = new JButton();
 		btn_showpass.setBackground(new Color(40, 46, 62));
 		btn_showpass.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-                setShowPasswordMouseClick(e);
+				setShowPasswordMouseClick(e);
 			}
 		});
 		btn_showpass.setIcon(new ImageIcon(Login.class.getResource("/IMG/eye_48.png")));
 		btn_showpass.setBounds(697, 273, 55, 37);
 		Interface.add(btn_showpass);
-		
-	}
-	 
 
-	 
-	 public FButton getBtn_dangnhap() {
+	}
+
+	public FButton getBtn_dangnhap() {
 		return btn_dangnhap;
 	}
 
@@ -213,16 +196,17 @@ public class Login extends JFrame {
 	}
 
 	public void SelectById() {
-		 System.out.println("Đăng Nhập click");
-		 if(textField_user.getText().trim().isEmpty()||textField_pass.getText().trim().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!!");
-		 }else {
-			 this.userDAO.getInstance().DangNhap(textField_user.getText(),textField_pass.getText());
-			 dispose();
-		 }
-	 }
-	 
-	 public FTextField getTextField_user() {
+		System.out.println("Đăng Nhập click");
+		if (textField_user.getText().trim().isEmpty() || textField_pass.getText().trim().isEmpty()) {
+			dispose();
+			JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!!");
+		} else {
+			this.userDAO.getInstance().DangNhap(textField_user.getText(), textField_pass.getText());
+			dispose();
+		}
+	}
+
+	public FTextField getTextField_user() {
 		return textField_user;
 	}
 
@@ -239,37 +223,25 @@ public class Login extends JFrame {
 	}
 
 	public void InsertsUser() {
-		 if(textField_user.getText().trim().isEmpty()||textField_pass.getPassword().toString().trim().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!!");
-		 }else {
-			User usernote = new User(textField_user.getText(),textField_user.getText(),textField_pass.getText());
-			 this.userDAO.getInstance().Dang_Ki(usernote);
-			try {
-				JOptionPane.showMessageDialog(new Home_Login(textField_user.getText()), "Đăng kí thành công!!!");
-			} catch (HeadlessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			 dispose();
-		 }
+		if (textField_user.getText().trim().isEmpty() || textField_pass.getPassword().toString().trim().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!!");
+		} else {
+			User usernote = new User(textField_user.getText(), textField_user.getText(), textField_pass.getText());
+			this.userDAO.getInstance().Dang_Ki(usernote);
+			dispose();
+		}
 	}
 
 	private void setShowPasswordMouseClick(ActionEvent event) {
-        if (textField_pass.getEchoChar() ==(char) 0) { // Password is hidden
-        	textField_pass.setEchoChar('\u25cf'); // Hide password
-        } else { // Password is visible
-        	textField_pass.setEchoChar((char) 0); // Show password
-        }
-    }
-	
+		if (textField_pass.getEchoChar() == (char) 0) { // Password is hidden
+			textField_pass.setEchoChar('\u25cf'); // Hide password
+		} else { // Password is visible
+			textField_pass.setEchoChar((char) 0); // Show password
+		}
+	}
 
 //	public void addButtonClickListener(ActionListener ac) {
 //		Login.addActionListener(ac);
 //	}
-	 
 
 }

@@ -89,7 +89,7 @@ public class User_DAO implements DAOinterface<User> {
 	@Override
 	public int Delete(User t) {
 		// Xóa 1 user
-		int check = 0;
+		int check = 0, check1 = 0, check2 = 0;
 
 		try {
 			// Bước 1: Tạo kết nối
@@ -101,7 +101,12 @@ public class User_DAO implements DAOinterface<User> {
 
 			// Bước 3: Thực thi một câu lệnh SQL
 			String sql = "DELETE FROM flash_card.`user`" + "WHERE `idUser`='" + t.getIdUser() + "';";
+			String sql1 = "DELETE FROM flash_card.`list_card`" + "WHERE `usercol`='" + t.getIdUser() + "';";
+			String sql2 = "DELETE FROM flash_card.`card`" + "WHERE `usercol`='" + t.getIdUser() + "';";
+
 			check = st.executeUpdate(sql);
+			check1 = st.executeUpdate(sql1);
+			check2 = st.executeUpdate(sql2);
 
 			// Bước 4: In câu lệnh
 			System.out.println("Bạn đã thực thi câu lệnh: " + sql);
@@ -268,7 +273,7 @@ public class User_DAO implements DAOinterface<User> {
 						+ ", '" + t.getIdUser() + "', '" + t.getIdUser() + "', '" + t.getPassWord()
 						+ "') ON DUPLICATE KEY UPDATE `pass` = VALUES(`pass`), `usercol` = VALUES(`usercol`);";
 				check = st.executeUpdate(sql);
-//				JOptionPane.showMessageDialog(new Home_Login(t.getIdUser()), "Đăng kí thành công!!!");
+				JOptionPane.showMessageDialog(new Home_Login(t.getIdUser()), "Đăng kí thành công!!!");
 				c.close();
 
 			}

@@ -27,9 +27,26 @@ CREATE TABLE `list_card` (
   `List_Name` varchar(45) NOT NULL,
   `cardcol` varchar(45) NOT NULL,
   `usercol` varchar(45) NOT NULL,
-  PRIMARY KEY (`cardcol`),
-  UNIQUE KEY `STT_UNIQUE` (`STT`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`STT`),
+  UNIQUE KEY `cardcol` (`cardcol`,`usercol`),
+  UNIQUE KEY `cardcol_2` (`cardcol`,`usercol`),
+  UNIQUE KEY `cardcol_3` (`cardcol`,`usercol`),
+  UNIQUE KEY `cardcol_4` (`cardcol`,`usercol`),
+  UNIQUE KEY `cardcol_5` (`cardcol`,`usercol`),
+  UNIQUE KEY `cardcol_6` (`cardcol`,`usercol`),
+  UNIQUE KEY `cardcol_7` (`cardcol`,`usercol`),
+  UNIQUE KEY `cardcol_8` (`cardcol`,`usercol`),
+  UNIQUE KEY `cardcol_9` (`cardcol`,`usercol`),
+  UNIQUE KEY `cardcol_10` (`cardcol`,`usercol`),
+  UNIQUE KEY `cardcol_11` (`cardcol`,`usercol`),
+  UNIQUE KEY `cardcol_12` (`cardcol`,`usercol`),
+  UNIQUE KEY `cardcol_13` (`cardcol`,`usercol`),
+  UNIQUE KEY `cardcol_14` (`cardcol`,`usercol`),
+  UNIQUE KEY `cardcol_15` (`cardcol`,`usercol`),
+  UNIQUE KEY `cardcol_16` (`cardcol`,`usercol`),
+  UNIQUE KEY `cardcol_17` (`cardcol`,`usercol`),
+  UNIQUE KEY `cardcol_18` (`cardcol`,`usercol`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +55,7 @@ CREATE TABLE `list_card` (
 
 LOCK TABLES `list_card` WRITE;
 /*!40000 ALTER TABLE `list_card` DISABLE KEYS */;
-INSERT INTO `list_card` VALUES (9,'','','admin'),(41,'1','1','admin'),(44,'111','111','admin1'),(42,'2','2','admin'),(43,'3','3','admin'),(5,'CSS','CSS','admin'),(6,'English','English','admin'),(2,'HTML','HTML','admin'),(1,'Java','Java','admin'),(22,'php','php','admin'),(23,'python','python','admin'),(40,'tho','tho','admin');
+INSERT INTO `list_card` VALUES (1,'Java','Java','admin'),(2,'HTML','HTML','admin'),(6,'English','English','admin'),(22,'php','php','admin'),(23,'python','python','admin'),(48,'English','English','user20'),(52,' Hóa hữu cơ 1',' Hóa hữu cơ 1','admin'),(54,' Giang',' Giang','admin'),(56,' Hóa học',' Hóa học','user20'),(57,'test user 12 ','test user 12 ','user12');
 /*!40000 ALTER TABLE `list_card` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +68,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-29 11:24:33
+-- Dump completed on 2024-06-01 20:36:26

@@ -60,9 +60,7 @@ public class demo {
 //		}
 //	}
 //});
-	
-	
-	
+
 //	btn_dangki.addActionListener(new ActionListener() {
 //		public void actionPerformed(ActionEvent e) {		
 //			try {
