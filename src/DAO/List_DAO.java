@@ -55,7 +55,7 @@ public class List_DAO implements DAOinterface<List_Card> {
 	@Override
 	public int Update(List_Card t) {
 		// sửa 1 list
-		int check = 0;
+		int check = 0, check1=0;
 
 		try {
 			// Bước 1: Tạo kết nối
@@ -66,15 +66,23 @@ public class List_DAO implements DAOinterface<List_Card> {
 			Statement st = c.createStatement();
 
 			// Bước 3: Thực thi một câu lệnh SQL
-			String sql = "UPDATE flash_card.`List_Card` SET `List_Name`='" + t.getName_List() + "' `cardcol`='"
-					+ t.getName_List() + "' WHERE `usercol`='" + t.getUsercol() + "' AND `cardcol` = '"
+			String sql = "UPDATE flash_card.`List_Card` SET `List_Name`='" + t.getName_List() + "', `cardcol`='"
+					+ t.getName_List() + "'WHERE `usercol`='" + t.getUsercol() + "' AND `cardcol` = '"
 							+ t.getCardcol() + "';";
-			check = st.executeUpdate(sql);
+			
+			String sql1 = "UPDATE flash_card.`card` SET " + "`cardcol`='" + t.getName_List() + "'WHERE `Name`='"
+					+ t.getCardcol() + "';";
+			
 
 			// Bước 4: In câu lệnh
 			System.out.println("Bạn đã thực thi câu lệnh: " + sql);
 			System.out.println("Có: " + check + " dòng bị thay đổi");
+			System.out.println("Bạn đã thực thi câu lệnh: " + sql1);
+			System.out.println("Có: " + check1 + " dòng bị thay đổi");
 
+			
+			check = st.executeUpdate(sql);
+			check1 = st.executeUpdate(sql1);
 			// Bước 5: Ngắt kết nối
 			c.close();
 		} catch (SQLException e) {

@@ -311,7 +311,7 @@ public class admin_view extends JFrame {
 		panel_user.setVisible(false);
 
 		// Table User
-		String[] header = { "STT", "Tên danh sách", "Other", "Other" };
+		String[] header = { "STT", "Usercol", "ID user", "Password" };
 		dtm_user = new DefaultTableModel(header, 0) {
 		};
 		panel_user.add(new JScrollPane(table = new JTable(dtm_user)));
@@ -370,7 +370,7 @@ public class admin_view extends JFrame {
 		panel_list.setVisible(false);
 
 		// Table Card
-		String[] header1 = { "STT", "Tên danh sách", "Other", "Other" };
+		String[] header1 = { "STT", "Cardcol", "Tên danh sách", "user" };
 		dtm_list = new DefaultTableModel(header1, 0) {
 		};
 		panel_list.add(new JScrollPane(table1 = new JTable(dtm_list)));
@@ -430,7 +430,7 @@ public class admin_view extends JFrame {
 		panel_card.setVisible(false);
 
 		// Table Card
-		String[] header2 = { "STT", "Tên danh sách", "Other", "Other" };
+		String[] header2 = { "STT", "Tên danh sách", "Khái niệm", "Định nghĩa" };
 		dtm_card = new DefaultTableModel(header2, 0) {
 		};
 		panel_card.add(new JScrollPane(table2 = new JTable(dtm_card)));

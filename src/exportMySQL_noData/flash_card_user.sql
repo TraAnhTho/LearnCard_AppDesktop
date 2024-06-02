@@ -29,8 +29,18 @@ CREATE TABLE `user` (
   `pass` varchar(45) NOT NULL,
   PRIMARY KEY (`usercol`),
   UNIQUE KEY `STT_UNIQUE` (`STT`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'admin','admin','admin'),(15,'admin1','admin1','admin1'),(20,'anh thơ','anh thơ','ttt'),(2,'user','user','user'),(3,'user1','user1','user1'),(4,'user11','user11','user11'),(5,'user12','user12','user12'),(6,'user13','user13','user13'),(7,'user14','user14','user14'),(8,'user15','user15','user15'),(9,'User16','user16','User16'),(10,'user17','user17','user17'),(11,'user19','user19','user19'),(12,'user2','user2','user2'),(16,'user20','user20','user20'),(13,'user4','user4','user4'),(14,'user5','user5','user555');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -41,4 +51,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-25 22:15:46
+-- Dump completed on 2024-06-02 16:30:46

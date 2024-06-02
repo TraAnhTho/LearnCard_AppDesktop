@@ -84,12 +84,13 @@ public class Quiz extends JFrame implements ActionListener {
 		System.out.println("123");
 
 		System.out.println(randomSelection.size());
-		if (randomSelection == null || randomSelection.isEmpty()||randomSelection.size()<10) {
+		if (randomSelection == null || randomSelection.isEmpty() || randomSelection.size() < 10) {
 			System.out.println("Data not loaded");
 			try {
 				dispose();
-				JOptionPane.showMessageDialog(new Home_Login(name), "Thiếu dữ liệu. Hãy bắt đầu thêm bộ card. Có ít nhất 10 thẻ card để thực hiện bài test. ", "Đây là cửa số thông báo",
-						JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(new Home_Login(name),
+						"Thiếu dữ liệu. Hãy bắt đầu thêm bộ card. Có ít nhất 10 thẻ card để thực hiện bài test. ",
+						"Đây là cửa số thông báo", JOptionPane.ERROR_MESSAGE);
 			} catch (HeadlessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -269,12 +270,19 @@ public class Quiz extends JFrame implements ActionListener {
 			count++;
 			start(count);
 		} else if (ae.getSource() == lifeline) {
-			try {
-				setVisible(false);
-				new Home_Login(name);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			int result = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn thoát bài test???", "Xác nhận",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if (result == JOptionPane.YES_OPTION) {
+				dispose();
+				try {
+					dispose();
+					new Home_Login(name);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else if (result == JOptionPane.NO_OPTION) {
+			} else {
 			}
 
 		} else if (ae.getSource() == submit) {

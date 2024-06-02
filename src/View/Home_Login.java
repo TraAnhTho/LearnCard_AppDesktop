@@ -104,6 +104,8 @@ public class Home_Login extends JFrame {
 	private JPanel panel_home;
 	private JTable table_update_card;
 	static String iduser;
+	private String temp;
+
 
 	/**
 	 * Launch the application.
@@ -180,6 +182,8 @@ public class Home_Login extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				panel_tools.setVisible(false);
+				panel_topic.setVisible(false);
 				count++;
 				if (count % 2 != 0) {
 					// Xử lý khi nhấn lần đầu
@@ -189,7 +193,6 @@ public class Home_Login extends JFrame {
 					// Xử lý khi nhấn lần thứ hai
 					System.out.println("Đã nhấn lần Topic");
 					panel_home.setVisible(false);
-
 				}
 			}
 		});
@@ -261,9 +264,10 @@ public class Home_Login extends JFrame {
 		JLabel Tools = new JLabel("Tools");
 		Tools.addMouseListener(new MouseAdapter() {
 			int count = 0;
-
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				panel_home.setVisible(false);
+				panel_topic.setVisible(false);
 				count++;
 				if (count % 2 != 0) {
 					// Xử lý khi nhấn lần đầu
@@ -295,6 +299,8 @@ public class Home_Login extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				panel_home.setVisible(false);
+				panel_tools.setVisible(false);
 				count++;
 				if (count % 2 != 0) {
 					// Xử lý khi nhấn lần đầu
@@ -336,6 +342,7 @@ public class Home_Login extends JFrame {
 		lbl_Learn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				dispose();
 				new Learn(iduser);
 			}
 		});
@@ -348,7 +355,7 @@ public class Home_Login extends JFrame {
 		lbl_Test.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				setVisible(false);
+				dispose();
 				new Rules(iduser);
 			}
 		});
@@ -678,7 +685,9 @@ public class Home_Login extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				txt_list_card.setText(" ");
+				panel_home.setVisible(false);
 				panel_tools.setVisible(false);
+				panel_topic.setVisible(false);
 				panel_Edit_List.setVisible(false);
 				panel_Edit_Card.setVisible(false);
 				panel_Edit.setVisible(false);
@@ -700,7 +709,9 @@ public class Home_Login extends JFrame {
 		lbl_Edit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				panel_home.setVisible(false);
 				panel_tools.setVisible(false);
+				panel_topic.setVisible(false);
 				panel_Create.setVisible(false);
 				panel_Create_List.setVisible(false);
 				panel_Edit_List.setVisible(true);
@@ -715,7 +726,9 @@ public class Home_Login extends JFrame {
 		lbl_Delete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				panel_home.setVisible(false);
 				panel_tools.setVisible(false);
+				panel_topic.setVisible(false);
 				panel_Create.setVisible(false);
 				panel_Create_List.setVisible(false);
 				panel_Edit_List.setVisible(false);
@@ -736,7 +749,7 @@ public class Home_Login extends JFrame {
 				String nameList = model_table.getValueAt(i_row, 1) + "";
 				String tes = model_table.getValueAt(i_row, 2) + "";
 				String des = model_table.getValueAt(i_row, 3) + "";
-
+				temp = tes;
 				textField_nameedit.setText(tes);
 				textField_desedit.setText(des);
 				txt_list_card.setText(nameList);
@@ -752,7 +765,6 @@ public class Home_Login extends JFrame {
 				Background_Main.setVisible(false);
 			}
 		});
-
 		// selectedit
 		btn_select_edit.addMouseListener(new MouseAdapter() {
 			@Override
@@ -762,10 +774,11 @@ public class Home_Login extends JFrame {
 					int i_row = table_update_list.getSelectedRow();
 					System.out.println("irow: " + i_row);
 					System.out.println("model_edit: " + model_table.getValueAt(i_row, 1));
-					String tableedit = model_table.getValueAt(i_row, 1) + "";
-					System.out.println("name-edit: " + tableedit);
+					String carcol = model_table.getValueAt(i_row, 1) + "";
+					
 
-					txt_list_card.setText(tableedit);
+
+					txt_list_card.setText(carcol);
 					System.out.println(txt_list_card.getText());
 
 					panel_tools.setVisible(false);
@@ -777,7 +790,7 @@ public class Home_Login extends JFrame {
 					panel_Delete_List.setVisible(false);
 					panel_Delete_Card.setVisible(false);
 					Background_Main.setVisible(false);
-					LoadDBData3JTable(tableedit);
+					LoadDBData3JTable(carcol);
 
 				} catch (Exception e2) {
 					System.err.println("An error occurred: " + e2.getMessage());
@@ -970,7 +983,7 @@ public class Home_Login extends JFrame {
 	public void UpdateCard() {
 
 		Card cardnote = new Card(txt_list_card.getText(), textField_nameedit.getText(), textField_desedit.getText());
-		this.cardDAO.getInstance().Update(cardnote);
+		this.cardDAO.getInstance().UpdateOtherCard(cardnote, temp);
 		try {
 			dispose();
 			JOptionPane.showMessageDialog(new Home_Login(iduser), "Đã cập nhật !", "Đây là cửa số thông báo",
