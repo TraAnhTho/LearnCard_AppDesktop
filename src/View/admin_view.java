@@ -52,7 +52,7 @@ public class admin_view extends JFrame {
 	private User_DAO userDAO;
 
 	private JPanel contentPane;
-	private String iduser;
+	static String iduser="admin";
 
 	private FTextField txt_id;
 	private FTextField txt_pass;

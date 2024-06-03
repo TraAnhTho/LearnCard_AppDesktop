@@ -53,6 +53,7 @@ import java.awt.event.ActionEvent;
 import View.Login;
 import design.FButton;
 import design.FTextField;
+import java.awt.Toolkit;
 
 public class Home_Login extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -131,6 +132,8 @@ public class Home_Login extends JFrame {
 	 * @author TraAnhTho
 	 */
 	public Home_Login(String iduser) throws Exception {
+		setTitle("Main interface");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Home_Login.class.getResource("/IMG/21 Heart-Wrenching GIFs To Sam Smith's _Stay With Me_ That Will Make You Stay.gif")));
 		this.iduser = iduser;
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

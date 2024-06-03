@@ -2,6 +2,9 @@ package View;
 
 import javax.swing.border.EmptyBorder;
 
+import org.hibernate.event.spi.ClearEvent;
+import org.hibernate.event.spi.ClearEventListener;
+
 import DAO.Card_DAO;
 import DAO.List_DAO;
 import DAO.User_DAO;
@@ -48,15 +51,19 @@ public class Quiz extends JFrame implements ActionListener {
 	private Login login;
 	List<String> random_dapan;
 	List<QuestionAnswer> randomSelection;
-	public static int timer = 15;
-	public static int ans_given = 0;
-	public static int count = 0;
-	public static int score = 0;
+	public static int timer;
+	public static int ans_given;
+	public static int count;
+	public static int score;
 
 	static String name;
 
 	Quiz(String name) {
 		this.name = name;
+		timer = 15;
+		ans_given = 0;
+		count = 0;
+		score = 0;
 		setBounds(100, 100, 1020, 510);
 		getContentPane().setBackground(Color.WHITE);
 		setUndecorated(true);
@@ -243,8 +250,9 @@ public class Quiz extends JFrame implements ActionListener {
 		getContentPane().add(submit);
 
 		start(count);
-
 		setVisible(true);
+
+		
 	}
 
 	public void actionPerformed(ActionEvent ae) {
@@ -265,7 +273,13 @@ public class Quiz extends JFrame implements ActionListener {
 			if (count == 8) {
 				next.setEnabled(false);
 				submit.setEnabled(true);
+				next.setVisible(false);
+				submit.setVisible(true);
+				lifeline.setVisible(false);
 			}
+//			if(count == randomSelection.size()) {
+//				
+//				}
 
 			count++;
 			start(count);
@@ -286,6 +300,7 @@ public class Quiz extends JFrame implements ActionListener {
 			}
 
 		} else if (ae.getSource() == submit) {
+			
 			ans_given = 1;
 			if (groupoptions.getSelection() == null) {
 				useranswers[count][0] = "";
@@ -390,7 +405,7 @@ public class Quiz extends JFrame implements ActionListener {
 
 	public static void main(String[] args) {
 		try {
-			new Quiz(name);
+			Quiz q = new Quiz(name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

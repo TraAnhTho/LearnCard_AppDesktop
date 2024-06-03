@@ -39,6 +39,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 /**
  * 
@@ -82,6 +83,8 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		setTitle("Login");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/IMG/21 Heart-Wrenching GIFs To Sam Smith's _Stay With Me_ That Will Make You Stay.gif")));
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1020, 510);
